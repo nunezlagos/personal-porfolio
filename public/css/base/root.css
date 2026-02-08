@@ -1,0 +1,92 @@
+
+:root {
+
+
+
+    --custom-btn-home-background: rgba(111, 147, 224, 0.541);
+    --home-subtitle-color : #a2aabc;
+    --home-title-color: #FFD580;    
+    --about-subtitle-color : #a2aabc;
+    --about-title-color: #FFD580;
+    --about-description-color:#D7DCE2;
+    --primary-color:         #5ccfe6 ;  
+    --primary-v2-color:     #2f3b54;   
+    --primary-v3-color:     #66FFFF;   
+    --primary-v4-color:     #009999;   
+    --primary-about-btn-color:     #00b2b246;
+    --primary-about-in-btn-color:     #5d5e5ce3;
+    --btn-color :#ffffff;
+    --btn-hover-color:#ffce6c;
+    --secondary-color:         #95e1eee1 ; 
+    --link-more-info:     #525351e3;
+    --white-color:          #ffffff;
+    --black-color:#131112; 
+    --dark-color:            #576481d5;
+
+    --main-bg-color: linear-gradient(to bottom, #2f3b54, #2C374E);
+    --about-bg-color: linear-gradient(to bottom, #2C374E, #252E41);
+    --proyectos-bg-color: linear-gradient(to bottom, #252E41, #1D2534);
+    --certificaciones-bg-color: linear-gradient(to bottom, #1D2534, #161B27);
+    --experiencies-bg-color: linear-gradient(to bottom, #161B27, #0F121A);
+     
+    --bd-tag-color:       #66FFFF;
+
+    --gray-color:           #909090;
+    --link-color:           #404040;
+    --p-color:              rgb(162, 170, 188);
+    --card-color:         rgb(60, 75, 107);
+    --card-hover-color:        #4c5e85;
+    --card-title-color:     #F3F5F6;
+    --card-subtitle-color:#F3F5F6;
+    --card-description-color:#D7DCE2;
+    --base-font-family:     'Fira Code', sans-serif;
+    --font-weight-bold:     500;
+    --font-weight-normal:   normal;
+    --font-weight-light:    300;
+    --font-weight-thin:     100;
+
+    --h1-font-size:         32px;
+    --h1-color: #FFD580;
+
+    --h2-font-size:         36px;
+    --h3-font-size:         28px;
+    --h3-info-font-size:         25px;
+    --h4-font-size:         24px;
+    --h5-font-size:         22px;
+    --h6-font-size:         20px;
+    --p-font-size:          17px;
+    --p-info-font-size:          15px;
+    --base-font-size:       16px;
+    --menu-font-size:       14px;
+
+    --border-radius-large:  100%;
+    --border-radius-small:  2px;
+    --border-radius-medium:  3px;
+
+    --modal-color:  rgb(102, 117, 148);
+  }
+
+
+  .section {
+    padding: 7rem 0;
+  }
+
+  .bg-color {
+    background: var(--primary-color);
+    color: var(--white-color);
+  }
+
+
+  .bg-overlay {
+    background: var(--bg-main-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+  }
+
+

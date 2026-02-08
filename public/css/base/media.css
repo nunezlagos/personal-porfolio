@@ -1,0 +1,31 @@
+
+
+@media screen and (max-width: 992px) {
+
+  .section {
+    padding: 5rem 0;
+  }
+
+  .nav-item .nav-link {
+    padding: 6px;
+  }
+
+
+
+  .navbar-collapse,
+  .site-footer {
+    text-align: center;
+  }
+
+  .modal-content {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  h1 {
+    font-size: 32px;
+  }
+}
+

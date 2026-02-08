@@ -1,0 +1,56 @@
+.about {
+    background: var(--about-bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#about-name {
+    color: var(--about-title-color);
+}
+
+#about-title {
+    color: var(--about-subtitle-color);
+}
+
+#about-description {
+    color: var(--about-description-color);
+}
+
+.custom-btn-about-me {
+    padding: 10px 15px;
+    background-color: rgba(111, 147, 224, 0.541);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+    color: var(--btn-color);
+    border-radius: var(--border-radius-medium);
+    font-weight: bold;
+}
+
+.custom-btn-about-me:hover {
+    color: var(--black-color);
+    background: var(--btn-hover-color);
+    font-weight: bold;
+}
+
+.custom-btn-cv {
+    background: transparent;
+    background-color: rgba(116, 144, 204, 0.466);
+    border-radius: var(--border-radius-medium);
+    padding: 10px 7px;
+    color: var(--btn-color);
+    font-size: var(--menu-font-size);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+    transition: all 0.3s ease;
+    border: 1px solid var(--bg-main-color);
+    font-weight: bold;
+}
+
+.custom-btn-cv:hover {
+    color: var(--black-color);
+    background: var(--btn-hover-color);
+    font-weight: bold;
+}

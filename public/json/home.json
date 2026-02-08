@@ -1,0 +1,20 @@
+{
+    "subtitle": "INGENIERO DE SOFTWARE",
+    "title": "MAURICIO MARCELL NÚÑEZ LAGOS",
+    "aboutUrl": "#about",
+    "aboutText": "Mas Información",
+    "socialLinks": [
+        {
+            "url": "https://www.linkedin.com/in/mauricio-marcell-nu%C3%B1ez-lagos-819823252/",
+            "iconClass": "fa-linkedin"
+        },
+        {
+            "url": "https://www.github.com/nunezlagos",
+            "iconClass": "fa-github"
+        },
+        {
+            "url": "#",
+            "iconClass": "fa-twitter"
+        }
+    ]
+}

@@ -1,0 +1,81 @@
+.class-info {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .tag-container {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+  }
+  
+  .tag {
+    font-size: 0.75em;
+    background: var(--bd-tag-color);
+    border-radius: 0.2rem;
+    padding: 4px; 
+    margin-right: 0.5em; 
+    transition: all var(--transition-time);
+    flex: 0 0 22%; 
+    box-sizing: border-box; 
+  }
+  
+  .tag:last-child {
+    margin-right: 0; 
+  }
+  
+  
+  .class-info h3 {
+    max-height: 45px; 
+    min-height: 45px; 
+    overflow: hidden; 
+    font-size: var(--h3-info-font-size);
+  }
+  
+  .class-info p {
+    max-height: 90px; 
+    min-height: 90px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10; 
+    font-size: var(--p-info-font-size);
+    text-align: justify; 
+    color: var(--card-description-color);
+  }
+  
+  .card-name{
+    color: var(--card-title-color) !important;
+  }
+  .card-date{
+    color: var(--card-subtitle-color) !important;
+  }
+  
+  .class-thumb {
+    background-color: var(--card-color);
+    border-radius: 0.2rem; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.603); 
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  .class-thumb img {
+    width: 100%;        /* Ocupa todo el ancho del card */
+    height: 200px;      /* Altura fija */
+    object-fit: cover;  /* Recorta la imagen para que encaje sin deformarse */
+    border-radius: 0.2rem 0.2rem 0 0; /* Bordes superiores redondeados */
+}
+
+  .class-thumb:hover {
+    background-color: var(--card-hover-color);
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.39);  
+  }
+  
+  .card-title{
+    color: var(--about-title-color);
+  }
+  .card-subtitle{
+    color: var(--about-subtitle-color);
+  }
+  

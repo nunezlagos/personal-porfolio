@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NL - Developer | Mauricio Núñez Lagos</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Mauricio Núñez Lagos, ingeniero de software desarrollo backend y ciberseguridad. Explora mis proyectos y certificaciones.">
+    <meta name="keywords" content="Mauricio Núñez, Software Engineer, Desarrollo Backend, Ciberseguridad, Proyectos, Certificaciones">
+    <meta name="author" content="Mauricio Núñez Lagos">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="NL - Developer | Mauricio Núñez Lagos">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tu-sitio-web.com">
+    <meta property="og:image" content="../public/images/tu-imagen.jpg">
+    <meta property="og:description" content="Perfil de Mauricio Núñez Lagos, ingeniero de software, experto en desarrollo backend y ciberseguridad.">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@tuTwitterHandle">
+    <meta name="twitter:title" content="NL - Developer | Mauricio Núñez Lagos">
+    <meta name="twitter:description" content="Explora mis proyectos y certificaciones en el mundo del desarrollo de software.">
+    <meta name="twitter:image" content="../public/images/tu-imagen.jpg">
+
+    <link rel="stylesheet" href="../public/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/plugins/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/css/plugins/aos.css">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
+     <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none; /* Ocultar por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Habilitar scroll si es necesario */
+            background-color: rgba(0,0,0,0.8); /* Fondo negro oscuro con opacidad */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            display: flex; /* Utiliza flexbox */
+            flex-direction: column; /* Alinea los elementos en columna */
+            justify-content: center; /* Centra verticalmente */
+            align-items: center; /* Centra horizontalmente */
+            background-color: #222; /* Fondo oscuro para el contenido */
+            margin: 5% auto; /* 5% desde arriba y centrado */
+            padding: 20px;
+            border: 1px solid red; /* Borde rojo para destacar */
+            width: 50%; /* Ancho del modal */
+            min-height: 500px; /* Altura mínima de 500px */
+            max-height: 500px; /* Altura máxima de 500px */
+            overflow-y: auto; /* Habilitar scroll interno si el contenido es más grande */
+            color: white; /* Color del texto */
+            text-align: center; /* Alinear texto al centro */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Sombra roja */
+            animation: pulse 1.5s infinite; /* Animación de pulso */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .alert {
+            font-size: 20px;
+            margin: 20px 0; /* Espaciado entre los mensajes */
+            color: yellow; /* Color de advertencia */
+        }
+
+        .warning {
+            color: orange; /* Color para advertencia */
+            font-weight: bold;
+            margin-top: 10px; /* Espaciado para separación */
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="index.html">N L </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                     <li class="nav-item">
+                        <a href="#" class="nav-link smoothScroll">Writeups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link smoothScroll">Investigaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link smoothScroll">CVES</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
+
+            <div class="bg-overlay"></div>
+
+            <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 col-md-10 mx-auto col-12">
+                            <div class="hero-text mt-5 text-center">
+
+                          
+                                <h1 class="text-white" data-aos="fade-up" data-aos-delay="300">Busqueda</h1>
+                                <input class="text-white" data-aos="fade-up" data-aos-delay="300"  type="text" id="autocomplete" placeholder="Escribe una opción...">
+                                <div id="sugerencias" class="sugerencias" style="display: none;"></div>
+                                <div id="mensajeNoDisponible" class="mensaje" style="display: none; color: red;">No está la opción disponible</div>
+                            
+                                <!-- Modal -->
+                                <div id="modal" class="modal">
+                                    <div class="modal-content">
+                                        <h1 style="color: red;">¡¡..Acceso denegado..!!</h1>
+                                        <p id="clientIP"></p>
+                                        <div class="alert">¡Tu intento de acceder a información restringida ha sido registrado!</div>
+                                        <div class="warning">¡No intentes hackear este sistema! Las consecuencias pueden ser severas.</div>
+                                        <div class="alert">Un administrador será notificado.</div>
+                                    </div>
+                                </div>
+                            
+                                <script type="module">
+                                    import opciones from '/public/database/opciones_cyber_zone.js';
+                                    
+                                    document.addEventListener('DOMContentLoaded', () => {
+                                        const input = document.getElementById('autocomplete');
+                                        const sugerenciasDiv = document.getElementById('sugerencias');
+                                        const mensajeNoDisponible = document.getElementById('mensajeNoDisponible');
+                                        const modal = document.getElementById('modal');
+                                        const closeModal = document.getElementById('closeModal');
+                                        const clientIPDisplay = document.getElementById('clientIP');
+                            
+                                        // Obtener la dirección IP del cliente
+                                        async function obtenerIP() {
+                                            try {
+                                                const response = await fetch('https://api.ipify.org?format=json');
+                                                const data = await response.json();
+                                                return data.ip; // Retorna la IP
+                                            } catch (error) {
+                                                console.error('Error al obtener la IP:', error);
+                                                return 'No se pudo obtener la IP';
+                                            }
+                                        }
+                            
+                                        input.addEventListener('input', async () => {
+                                            const valor = input.value.toLowerCase();
+                                            sugerenciasDiv.innerHTML = '';
+                                            sugerenciasDiv.style.display = 'none';
+                                            mensajeNoDisponible.style.display = 'none'; // Oculta el mensaje por defecto
+                            
+                                            // Detectar intentos de SQL Injection
+                                            const sqlInjectionPattern = /('|;|--|\/\*|\*\/|DROP|SELECT|INSERT|UPDATE|DELETE)/i;
+                                            if (sqlInjectionPattern.test(valor)) {
+                                                const ip = await obtenerIP(); // Obtener la IP del cliente
+                                                clientIPDisplay.textContent = `IP del cliente: ${ip}`; // Mostrar la IP en el modal
+                                                modal.style.display = 'block'; // Mostrar el modal si se detecta SQLi
+                                                return; // Detener el procesamiento
+                                            }
+                            
+                                            if (valor) {
+                                                const opcionesFiltradas = opciones.filter(opcion => opcion.toLowerCase().includes(valor));
+                                                if (opcionesFiltradas.length > 0) {
+                                                    sugerenciasDiv.style.display = 'block';
+                                                    opcionesFiltradas.forEach(opcion => {
+                                                        const div = document.createElement('div');
+                                                        div.classList.add('sugerencia');
+                                                        div.textContent = opcion;
+                                                        div.addEventListener('click', () => {
+                                                            input.value = opcion;
+                                                            sugerenciasDiv.innerHTML = '';
+                                                            sugerenciasDiv.style.display = 'none';
+                                                            mensajeNoDisponible.style.display = 'none'; // Oculta el mensaje al seleccionar
+                                                        });
+                                                        sugerenciasDiv.appendChild(div);
+                                                    });
+                                                } else {
+                                                    // Si no hay opciones filtradas, muestra el mensaje
+                                                    sugerenciasDiv.style.display = 'none'; // Asegúrate de ocultar el contenedor de sugerencias
+                                                    mensajeNoDisponible.style.display = 'block'; // Muestra el mensaje
+                                                }
+                                            } else {
+                                                // Si el campo está vacío, oculta el mensaje
+                                                mensajeNoDisponible.style.display = 'none';
+                                            }
+                                        });
+                            
+                                        // Cerrar sugerencias al hacer clic fuera
+                                        document.addEventListener('click', (event) => {
+                                            if (!sugerenciasDiv.contains(event.target) && event.target !== input) {
+                                                sugerenciasDiv.innerHTML = '';
+                                                sugerenciasDiv.style.display = 'none';
+                                                mensajeNoDisponible.style.display = 'none'; // Oculta el mensaje al hacer clic fuera
+                                            }
+                                        });
+                            
+                                        // Cerrar el modal
+                                        closeModal.onclick = () => {
+                                            modal.style.display = 'none';
+                                        };
+                            
+                                        // Cerrar el modal si se hace clic fuera de él
+                                        window.onclick = (event) => {
+                                            if (event.target === modal) {
+                                                modal.style.display = 'none';
+                                            }
+                                        };
+                                    });
+                                </script>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+    </section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                    <div class="ml-auto col-lg-12 col-md-5">
+                        <p class="copyright-text">Using By Mauricio Núñez L. &copy; 2024 
+                    </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/aos.js"></script>
+    <script src="../public/js/smoothscroll.js"></script>
+    <script src="../public/js/custom.js"></script>
+
+</body>
+</html>
+
+

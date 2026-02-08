@@ -1,0 +1,27 @@
+#proyecto {
+    width: 100%; 
+    margin: 0;   
+    padding: 0;  
+  }
+  
+.projects {
+    background: var(--proyectos-bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.custom-btn-more-projects{
+    background: transparent;
+    color: var(--white-color); 
+    font-size: 18px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .custom-btn-more-projects:hover {
+    background: transparent;
+      color: var(--primary-color);
+  }

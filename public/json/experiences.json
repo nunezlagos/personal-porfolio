@@ -1,0 +1,18 @@
+[
+    {
+        "id": "001",
+        "dateFrom": "28/04/2025",
+        "dateTo": "Actualidad",
+        "position": "Ingeniero de Software",
+        "place": "SAARGO",
+        "resume": "Como Ingeniero de Software en SAARGO, se han desarrollado herramientas personalizadas utilizando PHP en sus distintas versiones, priorizando siempre la optimización y el rendimiento. Se opta por prescindir de librerías externas cuando la solución lo permite, garantizando mayor control sobre el desarrollo y mejor eficiencia. Se tiene experiencia trabajando con frameworks como Laravel, CodeIgniter y CakePHP, y en la implementación constante de JavaScript, especialmente con jQuery. Además, se trabaja en entornos dockerizados, contribuyendo al desarrollo y dockerización de aplicaciones para mejorar la escalabilidad y portabilidad de los sistemas. También se participa activamente en la creación de documentación técnica, diagramas de flujo BPMN y casos de uso, empleando metodologías ágiles para asegurar la eficiencia del proceso de desarrollo."
+    },
+    {
+        "id": "002",
+        "dateFrom": "01/01/2024",
+        "dateTo": "28/04/2024",
+        "position": "Analista Programador (Practicante)",
+        "place": "SAARGO",
+        "resume": "Durante su etapa como Analista Programador (Practicante) en SAARGO, se diseñaron soluciones para optimizar procesos repetitivos mediante el desarrollo de una herramienta en PHP 8.2. Esta herramienta integró APIs y utilizó Amazon S3 para mejorar el almacenamiento y la gestión de archivos. Además, se trabajó en la migración y optimización de bases de datos MySQL, creando un modelo de datos escalable que permitiera adaptarse a futuros requerimientos. A lo largo de esta experiencia, se adquirieron conocimientos profundos en la integración de sistemas y la mejora continua de procesos, además de trabajar en la documentación técnica y la creación de diagramas de flujo para facilitar la comprensión de las soluciones propuestas."
+    }
+]

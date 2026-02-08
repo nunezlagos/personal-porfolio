@@ -1,0 +1,35 @@
+.modal-dialog {
+    max-width: 900px; 
+  }
+  
+  .modal-body img {
+    width: 100%; 
+  }
+  
+  .modal-title{
+    color: var(--about-title-color);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 500;
+
+  }
+  .modal-date{
+    color: var(--about-subtitle-color);
+  }
+  .modal-description{
+    font-weight: 300;
+    color: var(--about-description-color);
+  }
+
+
+  .modal-content {
+    background-color: var(--modal-color);
+    padding: 2rem 2rem;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border: 0;
+    padding: 0;
+  }

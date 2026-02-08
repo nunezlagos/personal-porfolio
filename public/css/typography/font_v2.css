@@ -1,0 +1,27 @@
+/* Importar Fira Code */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+/* Definición de Roboto */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype'),
+         url('../fonts/Roboto-Regular.woff') format('woff');
+    font-weight: normal; /* Peso normal */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Light.ttf') format('truetype'),
+         url('../fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300; /* Peso para Roboto Light */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Bold.ttf') format('truetype'),
+         url('../fonts/Roboto-Bold.woff') format('woff');
+    font-weight: bold; /* Peso para Roboto Bold */
+    font-style: normal;
+}

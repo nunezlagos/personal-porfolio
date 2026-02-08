@@ -1,0 +1,12 @@
+[
+    {
+        "id": "001",
+        "name": "Scrum Foundation",
+        "date":"01/02/2024",
+        "description": "La certificación Scrum Foundation respalda el dominio de los principios ágiles y Scrum. Este certificado demuestra la capacidad de trabajar eficazmente dentro de un equipo Scrum, promoviendo la colaboración, la gestión ágil de proyectos y la entrega de resultados de alta calidad. A través de esta certificación, se refuerzan competencias clave como la adaptabilidad, la gestión del tiempo y la resolución de problemas en un entorno ágil.",
+        "img": "/public/images/certification/sfpc/sfpc.png",
+        "repository": "",
+        "skill": ["Agile", "Team Work"]
+    }
+ 
+]

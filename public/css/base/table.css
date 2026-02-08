@@ -1,0 +1,87 @@
+
+.table {
+  border-collapse: collapse;
+  background-color: transparent;
+  color: #ffffff;
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+  min-width: 100%; /* Para evitar que colapse si hay poco contenido */
+  table-layout: fixed; /* Controla el ancho de las columnas */
+}
+
+.table th,
+.table td {
+  padding: 15px;
+  text-align: left;
+  background-color: transparent; /* Fondo transparente */
+  box-shadow: none;
+  color: #ffffff;
+  margin: 0;
+}
+
+.table thead {
+  background-color: rgba(0, 0, 0, 0.3); /* Fondo más oscuro para los encabezados */
+}
+
+.table-container {
+  max-height: 60vh;
+  overflow-y: auto; /* Permitir desplazamiento vertical */
+}
+
+.table-container::-webkit-scrollbar {
+  width: 0px; /* Ocultar la barra de desplazamiento */
+  background: transparent;
+}
+
+.table-container {
+  scrollbar-width: none; /* Para ocultar la barra de desplazamiento en Firefox */
+}
+
+.custom-btn-table {
+  padding: 3px 5px;
+  background-color: rgba(111, 147, 224, 0.541);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+  color: var(--btn-color);
+  border-radius: var(--border-radius-medium);
+  font-weight: 500;
+}
+
+.custom-btn-table:hover {
+  color: var(--black-color);
+  background: var(--btn-hover-color);
+  font-weight: bold;
+}
+
+.table, .table th, .table td {
+  border: none !important; /* Eliminar cualquier borde */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 767px) {
+
+  /* Mostrar solo el nombre del proyecto y el link en pantallas pequeñas */
+  .table th:nth-child(0), .table td:nth-child(0), /* Ocultar fecha */
+  .table th:nth-child(2), .table td:nth-child(2) { /* Ocultar la columna de skills */
+    display: none;
+  }
+
+  /* No ocultar la columna con el botón en pantallas pequeñas */
+  .table th:nth-child(4), .table td:nth-child(4) {
+    display: table-cell !important;
+  }
+
+  /* Asegurar que el botón se vea correctamente */
+  .custom-btn-table {
+    font-size: 12px; /* Ajustar el tamaño del botón en pantallas pequeñas */
+    padding: 6px 10px; /* Asegurar que el botón tenga suficiente espacio */
+  }
+
+  /* Permitir desplazamiento horizontal */
+  .table-container {
+    overflow-x: auto;
+  }
+
+  /* Ajustar columnas en pantallas pequeñas */
+  .table {
+    table-layout: auto;
+  }
+}
