@@ -1,0 +1,48 @@
+---
+interface Props {
+  subtitle: string;
+  title: string;
+  aboutUrl: string;
+  aboutText: string;
+  socialLinks: Array<{ url: string; iconClass: string }>;
+}
+
+const { subtitle, title, aboutUrl, aboutText, socialLinks } = Astro.props;
+
+// Dividir el título para colorear la primera parte según la paleta (amarillo)
+const words = title.split(' ');
+const mid = Math.ceil(words.length / 2);
+const firstPart = words.slice(0, mid).join(' ');
+const secondPart = words.slice(mid).join(' ');
+---
+
+<section class="home d-flex flex-column justify-content-center align-items-center" id="home">
+  <div class="bg-overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto col-12">
+        <div class="home-text text-center">
+          <h6 class="home-subtitle" data-aos="fade-up" data-anim-id="home-subtitle">{subtitle}</h6>
+          <h1 class="home-title" data-aos="fade-up" data-anim-id="home-title">
+            {firstPart} <span class="text-white">{secondPart}</span>
+          </h1>
+          <a href={aboutUrl} class="btn custom-btn mt-3 smoothScroll" data-aos="fade-up" data-anim-id="home-btn">
+            <strong>{aboutText}</strong>
+          </a>
+          <div class="col-lg-8 col-md-10 mx-auto col-12 social-icon mt-4">
+            <ul class="social-icon ml-lg-12" data-anim-container="home-social-item">
+              {socialLinks.map((link) => (
+                <li>
+                  <a href={link.url} class={`fa ${link.iconClass}`} data-aos="fade-up" data-anim-item="home-social-item" target="_blank" rel="noopener noreferrer" aria-label={link.iconClass}></a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <h5 style="color: whitesmoke; font-style: italic" class="text-center pt-3" data-aos="fade-up" data-anim-id="home-quote">
+          "Menos es más"
+        </h5>
+      </div>
+    </div>
+  </div>
+</section>

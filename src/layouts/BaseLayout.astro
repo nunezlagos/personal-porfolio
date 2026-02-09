@@ -1,0 +1,142 @@
+---
+import '../css/main.css';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  author?: string;
+  ogImage?: string;
+  ogUrl?: string;
+}
+
+const { title, description, keywords = '', author = '', ogImage = '/images/icon/android-chrome-512x512.png', ogUrl = '' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:description" content={description} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/plugins/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/plugins/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/plugins/aos.css" />
+  </head>
+  <body data-spy="scroll" data-target="#navbarNav" data-offset="50" data-contact-email="contacto@nunezlagos.com">
+    <canvas id="global-canvas"></canvas>
+    
+    <slot />
+    <script is:inline src="/js/jquery.min.js"></script>
+    <script is:inline src="/js/bootstrap.min.js"></script>
+    <script is:inline src="/js/aos.js"></script>
+    <script is:inline src="/js/smoothscroll.js"></script>
+    <script is:inline src="/js/navbar.js"></script>
+    <script is:inline src="/js/animations.js"></script>
+    <script is:inline src="/js/starfield.js"></script>
+    
+    <button id="floatingActionBtn" class="scroll-top" aria-label="Contacto">
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+    </button>
+
+    <script is:inline>
+      (function() {
+        const btn = document.getElementById('floatingActionBtn');
+        if (!btn) return;
+
+        const navbar = document.querySelector('.navbar');
+        const home = document.getElementById('home');
+        const icon = btn.querySelector('i');
+        const contactEmail = document.body.getAttribute('data-contact-email') || '';
+
+        function isInHome() {
+          if (!home) return false;
+          const rect = home.getBoundingClientRect();
+          return rect.bottom > 80;
+        }
+
+        function setMode(mode) {
+          btn.dataset.mode = mode;
+          if (!icon) return;
+          if (mode === 'contact') {
+            btn.setAttribute('aria-label', 'Contacto');
+            icon.className = 'fa fa-envelope';
+          } else {
+            btn.setAttribute('aria-label', 'Volver arriba');
+            icon.className = 'fa fa-arrow-up';
+          }
+        }
+
+        function openContactModal() {
+          if (typeof jQuery !== 'undefined') {
+            jQuery('#contactModal').modal('show');
+          }
+        }
+
+        function update() {
+          const inHome = isInHome();
+
+          if (navbar) {
+            if (inHome) navbar.classList.add('navbar-hidden');
+            else navbar.classList.remove('navbar-hidden');
+          }
+
+          if (inHome) {
+            btn.classList.add('show');
+            setMode('contact');
+          } else {
+            setMode('top');
+            if (window.scrollY > 300) btn.classList.add('show');
+            else btn.classList.remove('show');
+          }
+
+          if (!contactEmail && btn.dataset.mode === 'contact') {
+            btn.classList.remove('show');
+          }
+        }
+
+        btn.addEventListener('click', () => {
+          if (btn.dataset.mode === 'contact') {
+            openContactModal();
+            return;
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        let ticking = false;
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+              ticking = false;
+              update();
+            });
+          },
+          { passive: true }
+        );
+
+        window.addEventListener('resize', update);
+        update();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+---
+---
+
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-auto" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactModalLabel">Contacto</h5>
+        <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contactName">Nombre</label>
+            <input id="contactName" name="name" class="form-control" type="text" autocomplete="name" required />
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" name="email" class="form-control" type="email" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Mensaje</label>
+            <textarea id="contactMessage" name="message" class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn custom-btn w-100 mt-3">Enviar</button>
+          <button type="button" class="btn custom-btn w-100 mt-3" data-dismiss="modal">Cerrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    function init() {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const to = document.body.getAttribute('data-contact-email') || '';
+        if (!to) return;
+
+        const name = document.getElementById('contactName')?.value || '';
+        const email = document.getElementById('contactEmail')?.value || '';
+        const message = document.getElementById('contactMessage')?.value || '';
+
+        const subject = encodeURIComponent('Contacto desde el portafolio');
+        const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+
+        if (typeof jQuery !== 'undefined') {
+          jQuery('#contactModal').modal('hide');
+        }
+        form.reset();
+      });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

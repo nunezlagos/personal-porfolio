@@ -1,0 +1,28 @@
+---
+const navLinks = [
+  { href: '#about', label: 'Sobre Mi' },
+  { href: '#projects', label: 'Proyectos' },
+  { href: '#certifications', label: 'Certificaciones' },
+  { href: '#experiences', label: 'Experiencia' },
+];
+---
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-hidden">
+  <div class="container">
+    <a class="navbar-brand nav-link smoothScroll" href="#home" data-aos="fade-right" data-anim-id="navbar-brand">N L</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto" data-anim-container="nav-item">
+        {navLinks.map((link) => (
+          <li class="nav-item">
+            <a href={link.href} class="nav-link smoothScroll" data-aos="fade-left" data-anim-item="nav-item">
+              <strong>{link.label}</strong>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</nav>
