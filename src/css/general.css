@@ -1,0 +1,281 @@
+/* =========================================
+   VARIABLES & THEME CONFIGURATION
+   ========================================= */
+:root {
+  --custom-btn-home-background: rgba(111, 147, 224, 0.54);
+  --home-subtitle-color: #a2aabc;
+  --home-title-color: #ffd580;
+  --about-subtitle-color: #a2aabc;
+  --about-title-color: #ffd580;
+  --about-description-color: #d7dce2;
+  
+  --primary-color: #5ccfe6;
+  --primary-v2-color: #2f3b54;
+  --primary-v3-color: #66ffff;
+  --primary-v4-color: #009999;
+  
+  --primary-about-btn-color: rgba(0, 178, 178, 0.27);
+  --primary-about-in-btn-color: rgba(93, 94, 92, 0.89);
+  
+  --btn-color: #ffffff;
+  --btn-hover-color: #ffce6c;
+  
+  --secondary-color: rgba(149, 225, 238, 0.88);
+  --link-more-info: rgba(82, 83, 81, 0.89);
+  
+  --white-color: #ffffff;
+  --black-color: #131112;
+  --dark-color: rgba(87, 100, 129, 0.84);
+  --gray-color: #909090;
+  --link-color: #404040;
+  --p-color: rgb(162, 170, 188);
+
+  /* Backgrounds */
+  --main-bg-color: linear-gradient(to bottom, #2f3b54, #2c374e);
+  --about-bg-color: linear-gradient(to bottom, #2c374e, #252e41);
+  --proyectos-bg-color: linear-gradient(to bottom, #252e41, #1d2534);
+  --certificaciones-bg-color: linear-gradient(to bottom, #1d2534, #161b27);
+  --experiencies-bg-color: linear-gradient(to bottom, #161b27, #0f121a);
+
+  /* Cards & Components */
+  --bd-tag-color: #66ffff;
+  --card-color: rgb(60, 75, 107);
+  --card-hover-color: #4c5e85;
+  --card-title-color: #f3f5f6;
+  --card-subtitle-color: #f3f5f6;
+  --card-description-color: #d7dce2;
+  --modal-color: rgb(102, 117, 148);
+
+  /* Typography */
+  --base-font-family: 'Roboto', sans-serif;
+  --font-weight-bold: 500;
+  --font-weight-normal: normal;
+  --font-weight-light: 300;
+  --font-weight-thin: 100;
+
+  --h1-font-size: 32px;
+  --h1-color: #ffd580;
+  --h2-font-size: 36px;
+  --h3-font-size: 28px;
+  --h3-info-font-size: 25px;
+  --h4-font-size: 24px;
+  --h5-font-size: 22px;
+  --h6-font-size: 20px;
+  --p-font-size: 17px;
+  --p-info-font-size: 15px;
+  --base-font-size: 16px;
+  --menu-font-size: 14px;
+
+  /* Spacing & Effects */
+  --border-radius-large: 100%;
+  --border-radius-small: 2px;
+  --border-radius-medium: 3px;
+  --transition-time: 0.3s ease;
+}
+
+/* =========================================
+   BASE STYLES & TYPOGRAPHY
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--base-font-family);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #0f121a;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-thin);
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin: 20px 0 30px; /* More bottom margin */
+  color: var(--h1-color);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+
+h4 { font-size: var(--h4-font-size); margin-bottom: 15px; }
+h5 { font-size: var(--h5-font-size); margin-bottom: 15px; }
+
+h6 {
+  color: var(--gray-color);
+  font-size: var(--h6-font-size);
+  line-height: inherit;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+p {
+  color: var(--p-color);
+  font-size: var(--p-font-size);
+  font-weight: var(--font-weight-light);
+  line-height: 1.6em; /* Improved readability */
+  margin-bottom: 1.5em;
+}
+
+b, strong {
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  font-weight: normal;
+  text-decoration: none;
+  transition: color var(--transition-time), background-color var(--transition-time);
+}
+
+a:hover, a:active, a:focus {
+  color: var(--primary-color);
+  outline: none;
+  text-decoration: none;
+}
+
+html,
+body {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Animation Keyframes */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================================
+   LAYOUT UTILITIES & COMMON CLASSES
+   ========================================= */
+.section {
+  padding: 7rem 0;
+  position: relative;
+}
+
+.bg-color {
+  background: var(--primary-color);
+  color: var(--white-color);
+}
+
+.bg-overlay {
+  background: var(--main-bg-color);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+/* Standard Buttons */
+.custom-btn {
+  background: var(--custom-btn-home-background);
+  color: var(--btn-color);
+  font-weight: bold;
+  border-radius: var(--border-radius-medium);
+  padding: 12px 24px;
+  border: 0;
+  transition: all var(--transition-time);
+  text-transform: uppercase;
+  font-size: var(--p-font-size);
+  white-space: nowrap;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.32);
+}
+
+.custom-btn:hover {
+  background: var(--btn-hover-color);
+  color: var(--black-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.bordered-btn {
+  background: transparent;
+  color: var(--white-color);
+  border: 2px solid var(--white-color);
+  padding: 10px 20px;
+  border-radius: var(--border-radius-medium);
+}
+
+.bordered-btn:hover {
+  background: var(--white-color);
+  color: var(--black-color);
+}
+
+/* Text Button (Transparent with hover effect) */
+.custom-btn-text {
+  background: transparent;
+  color: var(--white-color);
+  font-size: 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all var(--transition-time);
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.custom-btn-text:hover {
+  background: transparent;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Forms */
+.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--gray-color);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--white-color);
+  font-weight: var(--font-weight-light);
+  margin-bottom: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  transition: all var(--transition-time);
+}
+
+.form-control:focus {
+  background: transparent;
+  border-color: var(--white-color);
+  box-shadow: none;
+  color: var(--white-color);
+}

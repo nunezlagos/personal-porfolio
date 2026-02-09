@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Home from '../components/Home.astro';
+import About from '../components/About.astro';
+import Projects from '../components/Projects.astro';
+import Certifications from '../components/Certifications.astro';
+import Experiences from '../components/Experiences.astro';
+import Footer from '../components/Footer.astro';
+import Modals from '../components/Modals.astro';
+import { getSection } from '../lib/db';
+import {
+  defaultHead,
+  defaultHome,
+  defaultAbout,
+  defaultProjects,
+  defaultCertifications,
+  defaultExperiences,
+} from '../lib/defaults';
+
+let meta = defaultHead;
+let homeData = defaultHome;
+let aboutData = defaultAbout;
+let projectsData = defaultProjects;
+let certificationsData = defaultCertifications;
+let experiencesData = defaultExperiences;
+
+try {
+  const runtime = Astro.locals.runtime;
+  const db = runtime?.env?.DB;
+  if (db) {
+    const [head, home, about, projects, certifications, experiences] = await Promise.all([
+      getSection<typeof defaultHead>(db, 'head'),
+      getSection<typeof defaultHome>(db, 'home'),
+      getSection<typeof defaultAbout>(db, 'about'),
+      getSection<typeof defaultProjects>(db, 'projects'),
+      getSection<typeof defaultCertifications>(db, 'certifications'),
+      getSection<typeof defaultExperiences>(db, 'experiences'),
+    ]);
+    if (head) meta = head;
+    if (home) homeData = home;
+    if (about) aboutData = about;
+    if (Array.isArray(projects)) projectsData = projects;
+    if (Array.isArray(certifications)) certificationsData = certifications;
+    if (Array.isArray(experiences)) experiencesData = experiences;
+  }
+} catch {
+  // keep defaults
+}
+
+if (import.meta.env.DEV) {
+  if (projectsData.length < defaultProjects.length) projectsData = defaultProjects;
+  if (certificationsData.length < defaultCertifications.length) certificationsData = defaultCertifications;
+}
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  author={meta.author}
+  ogImage={meta.openGraph?.image ?? '/images/icon/android-chrome-512x512.png'}
+  ogUrl={meta.openGraph?.url ?? ''}
+>
+  <Navbar />
+  <Home
+    subtitle={homeData.subtitle}
+    title={homeData.title}
+    aboutUrl={homeData.aboutUrl}
+    aboutText={homeData.aboutText}
+    socialLinks={homeData.socialLinks}
+  />
+  <About
+    name={aboutData.name}
+    title={aboutData.title}
+    description={aboutData.description}
+    cvUrl={aboutData.cvUrl}
+    cvText={aboutData.cvText}
+    projectsUrl={aboutData.projectsUrl}
+    projectsText={aboutData.projectsText}
+    certificationsUrl={aboutData.certificationsUrl}
+    certificationsText={aboutData.certificationsText}
+    experiencesUrl={aboutData.experiencesUrl}
+    experiencesText={aboutData.experiencesText}
+  />
+  <Projects projects={projectsData} />
+  <Certifications certifications={certificationsData} />
+  <Experiences experiences={experiencesData} />
+  <Modals />
+  <Footer />
+</BaseLayout>

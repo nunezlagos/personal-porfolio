@@ -1,0 +1,544 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { verifySession, getSessionCookie, getSessionSecret } from '../../lib/auth';
+import { getSection } from '../../lib/db';
+import { getEnv } from '../../lib/env';
+import { defaultProjects, defaultCertifications, defaultExperiences, defaultHome, defaultAbout, defaultHead } from '../../lib/defaults';
+
+const env = getEnv(Astro.locals.runtime?.env as Record<string, unknown> | undefined);
+const secret = getSessionSecret(env);
+const cookie = getSessionCookie(Astro.request.headers);
+let isLoggedIn = false;
+let email = '';
+
+if (secret && cookie) {
+  const session = await verifySession(cookie, secret);
+  if (session) {
+    isLoggedIn = true;
+    email = session.email;
+  }
+}
+
+// Fetch ALL data
+const db = Astro.locals.runtime?.env?.DB;
+let allData = {
+    projects: defaultProjects,
+    certifications: defaultCertifications,
+    experiences: defaultExperiences,
+    home: defaultHome,
+    about: defaultAbout,
+    head: defaultHead
+};
+
+let dbStatus = 'Offline (Defaults)';
+
+if (isLoggedIn && db) {
+  try {
+    const [projects, certifications, experiences, home, about, head] = await Promise.all([
+      getSection(db, 'projects'),
+      getSection(db, 'certifications'),
+      getSection(db, 'experiences'),
+      getSection(db, 'home'),
+      getSection(db, 'about'),
+      getSection(db, 'head')
+    ]);
+    
+    if (projects) allData.projects = projects as any;
+    if (certifications) allData.certifications = certifications as any;
+    if (experiences) allData.experiences = experiences as any;
+    if (home) allData.home = home as any;
+    if (about) allData.about = about as any;
+    if (head) allData.head = head as any;
+    
+    dbStatus = 'Online';
+  } catch (e) {
+    console.error('Error fetching data', e);
+    dbStatus = 'Error fetching data';
+  }
+}
+
+const initialDataStr = JSON.stringify(allData);
+
+const error = Astro.url.searchParams.get('error');
+const errorMsg = error ? 'Error de autenticación' : null;
+---
+
+<AdminLayout title="Dashboard" isLoggedIn={isLoggedIn} email={email}>
+  {!isLoggedIn ? (
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+        <div class="admin-card" style="max-width: 400px; text-align: center;">
+            <h2>Panel de administración</h2>
+            {errorMsg && <p style="color: #ffce6c;">{errorMsg}</p>}
+            <p>Inicia sesión con tu cuenta de Google (correo autorizado) para editar el contenido del portafolio.</p>
+            <a href="/api/auth/login" class="admin-btn" style="margin-top: 1rem;">Iniciar sesión con Google</a>
+        </div>
+    </div>
+  ) : (
+    <>
+    <div style="display: flex;">
+      <nav class="admin-sidebar">
+          <div class="sidebar-header">
+             <h3>Admin Panel</h3>
+          </div>
+          <div class="sidebar-link active" onclick="switchTab('dashboard', this)"><i class="fa fa-tachometer"></i> Dashboard</div>
+          <div class="sidebar-divider">Gestión de Contenido</div>
+          <div class="sidebar-link" onclick="switchTab('home', this)"><i class="fa fa-home"></i> Home</div>
+          <div class="sidebar-link" onclick="switchTab('about', this)"><i class="fa fa-user"></i> Sobre Mí</div>
+          <div class="sidebar-link" onclick="switchTab('projects', this)"><i class="fa fa-code"></i> Proyectos</div>
+          <div class="sidebar-link" onclick="switchTab('certifications', this)"><i class="fa fa-certificate"></i> Certificaciones</div>
+          <div class="sidebar-link" onclick="switchTab('experiences', this)"><i class="fa fa-briefcase"></i> Experiencia</div>
+          <div class="sidebar-link" onclick="switchTab('head', this)"><i class="fa fa-globe"></i> SEO / Meta</div>
+      </nav>
+      
+      <main class="admin-main">
+        {/* Dashboard Tab */}
+        <div id="tab-dashboard" class="tab-content">
+            <h1 style="color: #ffd580; margin-bottom: 1.5rem;">Dashboard</h1>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                  <div class="kpi-icon"><i class="fa fa-code"></i></div>
+                  <div class="kpi-content">
+                    <h4>Proyectos</h4>
+                    <p class="value" id="count-projects">0</p>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-icon"><i class="fa fa-certificate"></i></div>
+                  <div class="kpi-content">
+                    <h4>Certificaciones</h4>
+                    <p class="value" id="count-certifications">0</p>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-icon"><i class="fa fa-briefcase"></i></div>
+                  <div class="kpi-content">
+                    <h4>Experiencia</h4>
+                    <p class="value" id="count-experiences">0</p>
+                  </div>
+                </div>
+                 <div class="kpi-card">
+                  <div class="kpi-icon"><i class="fa fa-server"></i></div>
+                  <div class="kpi-content">
+                    <h4>Estado DB</h4>
+                    <p class="value">{dbStatus}</p>
+                  </div>
+                </div>
+            </div>
+            <div class="admin-card">
+                <h2>Bienvenido</h2>
+                <p>Selecciona una sección del menú lateral para ver y editar el contenido.</p>
+            </div>
+        </div>
+
+        {/* Section Tabs Container */}
+        <div id="section-editor-container" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h1 id="section-title" style="color: #ffd580; margin: 0;">Sección</h1>
+                <button id="btn-edit-section" class="admin-btn"><i class="fa fa-pencil"></i> Editar Todo</button>
+                <button id="btn-add-item" class="admin-btn" style="display: none;"><i class="fa fa-plus"></i> Agregar Nuevo</button>
+            </div>
+            
+            <div id="view-container" class="admin-card">
+                {/* Read Only View / Table */}
+            </div>
+        </div>
+      </main>
+    </div>
+    
+    {/* Modals */}
+    
+    {/* Edit Object Modal (Home, About, Head) */}
+    <div id="object-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+         <div class="admin-card" style="width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <h2 id="object-modal-title">Editar Sección</h2>
+            <form id="object-modal-form" class="admin-form">
+                <div id="object-modal-fields"></div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                    <button type="submit" class="admin-btn">Guardar Cambios</button>
+                    <button type="button" onclick="closeModal('object-modal')" class="admin-btn admin-btn-danger">Cancelar</button>
+                </div>
+            </form>
+         </div>
+    </div>
+
+    {/* Edit List Item Modal (Projects, etc) */}
+    <div id="item-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+         <div class="admin-card" style="width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
+            <h2 id="item-modal-title">Editar Item</h2>
+            <form id="item-modal-form" class="admin-form">
+                <div id="item-modal-fields"></div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                    <button type="submit" class="admin-btn">Guardar</button>
+                    <button type="button" onclick="closeModal('item-modal')" class="admin-btn admin-btn-danger">Cancelar</button>
+                </div>
+            </form>
+         </div>
+    </div>
+    </>
+  )}
+</AdminLayout>
+
+<script define:vars={{ initialDataStr }}>
+  // Initialize Data
+  let allData = JSON.parse(initialDataStr);
+  let currentKey = 'dashboard';
+  
+  // Update Counts
+  function updateCounts() {
+      document.getElementById('count-projects').textContent = Array.isArray(allData.projects) ? allData.projects.length : 0;
+      document.getElementById('count-certifications').textContent = Array.isArray(allData.certifications) ? allData.certifications.length : 0;
+      document.getElementById('count-experiences').textContent = Array.isArray(allData.experiences) ? allData.experiences.length : 0;
+  }
+  updateCounts();
+
+  // Tab Switching Logic
+  window.switchTab = (key, element) => {
+      currentKey = key;
+      
+      // Update Sidebar
+      document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+      if(element) element.classList.add('active');
+      
+      // Show/Hide Containers
+      if (key === 'dashboard') {
+          document.getElementById('tab-dashboard').style.display = 'block';
+          document.getElementById('section-editor-container').style.display = 'none';
+          updateCounts(); // Refresh counts
+      } else {
+          document.getElementById('tab-dashboard').style.display = 'none';
+          document.getElementById('section-editor-container').style.display = 'block';
+          loadSection(key);
+      }
+  };
+
+  // Schema Definitions
+  const schemas = {
+      projects: [
+          { key: 'id', label: 'ID', type: 'text', width: '50px' },
+          { key: 'name', label: 'Nombre', type: 'text' },
+          { key: 'date', label: 'Fecha', type: 'text' },
+          { key: 'description', label: 'Descripción', type: 'textarea' },
+          { key: 'img', label: 'URL Imagen', type: 'text' },
+          { key: 'repository', label: 'Repositorio', type: 'url' },
+          { key: 'url', label: 'Sitio Web', type: 'url' },
+          { key: 'skill', label: 'Skills (separados por coma)', type: 'array-string' }
+      ],
+      certifications: [
+          { key: 'id', label: 'ID', type: 'text', width: '50px' },
+          { key: 'name', label: 'Nombre', type: 'text' },
+          { key: 'date', label: 'Fecha', type: 'text' },
+          { key: 'description', label: 'Descripción', type: 'textarea' },
+          { key: 'img', label: 'URL Imagen', type: 'text' },
+          { key: 'repository', label: 'URL Credencial', type: 'url' },
+          { key: 'skill', label: 'Skills', type: 'array-string' }
+      ],
+      experiences: [
+          { key: 'id', label: 'ID', type: 'text', width: '50px' },
+          { key: 'position', label: 'Cargo', type: 'text' },
+          { key: 'place', label: 'Empresa', type: 'text' },
+          { key: 'dateFrom', label: 'Desde', type: 'text' },
+          { key: 'dateTo', label: 'Hasta', type: 'text' },
+          { key: 'resume', label: 'Resumen', type: 'textarea' }
+      ],
+      home: [
+          { key: 'subtitle', label: 'Subtítulo', type: 'text' },
+          { key: 'title', label: 'Título Principal', type: 'text' },
+          { key: 'aboutText', label: 'Texto Botón', type: 'text' },
+          { key: 'aboutUrl', label: 'URL Botón', type: 'text' }
+      ],
+      about: [
+          { key: 'name', label: 'Nombre', type: 'text' },
+          { key: 'title', label: 'Título', type: 'text' },
+          { key: 'description', label: 'Descripción', type: 'textarea' },
+          { key: 'cvText', label: 'Texto CV', type: 'text' },
+          { key: 'cvUrl', label: 'URL CV', type: 'text' },
+          { key: 'projectsText', label: 'Texto Proyectos', type: 'text' },
+          { key: 'projectsUrl', label: 'URL Proyectos', type: 'text' },
+          { key: 'certificationsText', label: 'Texto Certificaciones', type: 'text' },
+          { key: 'certificationsUrl', label: 'URL Certificaciones', type: 'text' },
+          { key: 'experiencesText', label: 'Texto Experiencia', type: 'text' },
+          { key: 'experiencesUrl', label: 'URL Experiencia', type: 'text' }
+      ],
+      head: [
+          { key: 'title', label: 'Título (Meta)', type: 'text' },
+          { key: 'description', label: 'Descripción (Meta)', type: 'textarea' },
+          { key: 'keywords', label: 'Keywords', type: 'textarea' },
+          { key: 'author', label: 'Autor', type: 'text' }
+      ]
+  };
+
+  const labels = {
+      home: 'Home', about: 'Sobre Mí', projects: 'Proyectos',
+      certifications: 'Certificaciones', experiences: 'Experiencia', head: 'SEO / Meta'
+  };
+
+  function loadSection(key) {
+      document.getElementById('section-title').textContent = labels[key] || key;
+      const data = allData[key];
+      const isArray = Array.isArray(data);
+      
+      const btnEdit = document.getElementById('btn-edit-section');
+      const btnAdd = document.getElementById('btn-add-item');
+      
+      if (isArray) {
+          btnEdit.style.display = 'none';
+          btnAdd.style.display = 'inline-block';
+          btnAdd.onclick = () => openItemModal(-1);
+          renderTable(key, data);
+      } else {
+          btnEdit.style.display = 'inline-block';
+          btnAdd.style.display = 'none';
+          btnEdit.onclick = () => openObjectModal(key);
+          renderObjectView(key, data);
+      }
+  }
+
+  function getLabel(key, fieldKey) {
+      if (schemas[key]) {
+         const f = schemas[key].find(x => x.key === fieldKey);
+         if (f) return f.label;
+      }
+      return fieldKey.charAt(0).toUpperCase() + fieldKey.slice(1);
+  }
+
+  // Render Functions
+  function renderObjectView(key, data) {
+      const container = document.getElementById('view-container');
+      container.innerHTML = '';
+      
+      const fields = schemas[key] || Object.keys(data).map(k => ({ key: k }));
+      
+      fields.forEach(f => {
+          const row = document.createElement('div');
+          row.className = 'view-row';
+          
+          const label = document.createElement('div');
+          label.className = 'view-label';
+          label.textContent = f.label || getLabel(key, f.key);
+          
+          const value = document.createElement('div');
+          value.className = 'view-value';
+          const val = data[f.key];
+          
+          if (Array.isArray(val)) {
+             value.textContent = val.join(', ');
+          } else {
+             value.textContent = val || '-';
+          }
+          
+          row.appendChild(label);
+          row.appendChild(value);
+          container.appendChild(row);
+      });
+  }
+
+  function renderTable(key, data) {
+      const container = document.getElementById('view-container');
+      container.innerHTML = '';
+      
+      if (!data || data.length === 0) {
+          container.innerHTML = '<p style="text-align:center; padding: 2rem;">No hay elementos. Agrega uno nuevo.</p>';
+          return;
+      }
+
+      const table = document.createElement('table');
+      table.className = 'admin-table';
+      
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      // Limit columns for table view
+      const displayFields = schemas[key].slice(0, 4); // First 4 fields
+      
+      displayFields.forEach(f => {
+          const th = document.createElement('th');
+          th.textContent = f.label;
+          headerRow.appendChild(th);
+      });
+      const thAction = document.createElement('th');
+      thAction.textContent = 'Acciones';
+      headerRow.appendChild(thAction);
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+      
+      const tbody = document.createElement('tbody');
+      data.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          displayFields.forEach(f => {
+              const td = document.createElement('td');
+              let val = item[f.key];
+              if (Array.isArray(val)) val = val.join(', ');
+              
+              if (f.key === 'img' && val) {
+                  td.innerHTML = `<img src="${val}" style="height: 30px; border-radius: 4px;">`;
+              } else {
+                  if (typeof val === 'string' && val.length > 40) val = val.substring(0, 40) + '...';
+                  td.textContent = val || '';
+              }
+              tr.appendChild(td);
+          });
+          
+          const tdAction = document.createElement('td');
+          tdAction.className = 'actions-cell';
+          
+          const btnEdit = document.createElement('button');
+          btnEdit.className = 'admin-btn';
+          btnEdit.innerHTML = '<i class="fa fa-pencil"></i>';
+          btnEdit.onclick = () => openItemModal(index);
+          
+          const btnDelete = document.createElement('button');
+          btnDelete.className = 'admin-btn admin-btn-danger';
+          btnDelete.innerHTML = '<i class="fa fa-trash"></i>';
+          btnDelete.onclick = () => deleteItem(index);
+          
+          tdAction.appendChild(btnEdit);
+          tdAction.appendChild(btnDelete);
+          tr.appendChild(tdAction);
+          tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      container.appendChild(table);
+  }
+
+  // API Save
+  async function saveData(key, newData) {
+      try {
+          const res = await fetch('/api/sections/' + key, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newData),
+          });
+          if (res.ok) {
+              // Update local state
+              allData[key] = newData;
+              // Refresh View
+              loadSection(key);
+              closeModal('object-modal');
+              closeModal('item-modal');
+          } else {
+              alert('Error al guardar');
+          }
+      } catch (e) {
+          alert('Error de conexión');
+      }
+  }
+
+  // Modals Logic
+  window.closeModal = (id) => {
+      document.getElementById(id).style.display = 'none';
+  };
+
+  // Object Modal (Home, About...)
+  window.openObjectModal = (key) => {
+      const modal = document.getElementById('object-modal');
+      const fieldsContainer = document.getElementById('object-modal-fields');
+      const form = document.getElementById('object-modal-form');
+      const data = allData[key];
+      
+      document.getElementById('object-modal-title').textContent = 'Editar ' + (labels[key] || key);
+      fieldsContainer.innerHTML = '';
+      
+      const fields = schemas[key] || Object.keys(data).map(k => ({ key: k }));
+      
+      fields.forEach(f => {
+          createField(fieldsContainer, f, data[f.key]);
+      });
+      
+      form.onsubmit = (e) => {
+          e.preventDefault();
+          const newData = { ...data };
+          const inputs = fieldsContainer.querySelectorAll('input, textarea');
+          inputs.forEach(input => {
+             const k = input.name;
+             const val = input.value;
+             // Simple string for object props in this app
+             newData[k] = val;
+          });
+          saveData(key, newData);
+      };
+      
+      modal.style.display = 'flex';
+  };
+
+  // Item Modal (List Items)
+  let editingIndex = -1;
+  window.openItemModal = (index) => {
+      editingIndex = index;
+      const key = currentKey;
+      const modal = document.getElementById('item-modal');
+      const fieldsContainer = document.getElementById('item-modal-fields');
+      const form = document.getElementById('item-modal-form');
+      const dataList = allData[key];
+      const item = index >= 0 ? dataList[index] : {};
+      
+      document.getElementById('item-modal-title').textContent = index >= 0 ? 'Editar Item' : 'Nuevo Item';
+      fieldsContainer.innerHTML = '';
+      
+      const fields = schemas[key];
+      fields.forEach(f => {
+          createField(fieldsContainer, f, item[f.key]);
+      });
+      
+      form.onsubmit = (e) => {
+          e.preventDefault();
+          const newItem = { ...item };
+          const inputs = fieldsContainer.querySelectorAll('input, textarea');
+          inputs.forEach(input => {
+              const k = input.name;
+              const type = input.dataset.type;
+              let val = input.value;
+              if (type === 'array-string') {
+                  val = val.split(',').map(s => s.trim()).filter(s => s);
+              }
+              newItem[k] = val;
+          });
+          
+          const newDataList = [...dataList];
+          if (index >= 0) {
+              newDataList[index] = newItem;
+          } else {
+              if (!newItem.id) newItem.id = Date.now().toString();
+              newDataList.push(newItem);
+          }
+          saveData(key, newDataList);
+      };
+      
+      modal.style.display = 'flex';
+  };
+  
+  window.deleteItem = (index) => {
+      if(confirm('¿Eliminar este elemento?')) {
+          const key = currentKey;
+          const newDataList = [...allData[key]];
+          newDataList.splice(index, 1);
+          saveData(key, newDataList);
+      }
+  };
+
+  function createField(container, fieldSchema, value) {
+      const div = document.createElement('div');
+      div.className = 'form-group';
+      
+      const label = document.createElement('label');
+      label.textContent = fieldSchema.label || fieldSchema.key;
+      div.appendChild(label);
+      
+      let input;
+      const type = fieldSchema.type || 'text';
+      
+      if (type === 'textarea') {
+          input = document.createElement('textarea');
+          input.rows = 4;
+          input.value = value || '';
+      } else {
+          input = document.createElement('input');
+          input.type = type === 'url' ? 'url' : 'text';
+          input.value = Array.isArray(value) ? value.join(', ') : (value || '');
+      }
+      input.name = fieldSchema.key;
+      input.dataset.type = type;
+      
+      div.appendChild(input);
+      container.appendChild(div);
+  }
+
+</script>

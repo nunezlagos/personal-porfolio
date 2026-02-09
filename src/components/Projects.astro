@@ -1,0 +1,147 @@
+---
+interface Project {
+  id: string;
+  name: string;
+  date?: string;
+  description: string;
+  img: string;
+  repository?: string;
+  url?: string;
+  skill: string[];
+}
+interface Props {
+  projects: Project[];
+}
+const { projects } = Astro.props;
+const truncate = (s: string, max = 150) => (s.length > max ? s.slice(0, max) + '...' : s);
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.toLowerCase().slice(1);
+const displayItems = projects.slice(0, 3);
+---
+
+<section class="projects section" id="projects" role="region" aria-label="Projects">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="card-title" data-aos="fade-up" data-anim-id="section-title">PROYECTOS</h2>
+        <h6 class="card-subtitle" data-aos="fade-up" data-anim-id="section-subtitle">Últimos trabajos realizados</h6>
+      </div>
+      <div class="row mt-3" id="proyecto" role="list" data-anim-container="card-item">
+        {displayItems.map((item, index) => (
+          <div class="col-lg-4 col-md-6 col-12 pb-5" data-aos="fade-up" data-anim-item="card-item">
+            <div
+              class="class-thumb"
+              data-toggle="modal"
+              data-target="#projectModal"
+              data-title={item.name}
+              data-description={item.description}
+              data-img={item.img}
+              data-date={item.date ?? ''}
+              data-repository={item.repository ?? ''}
+              role="button"
+              tabindex={0}
+            >
+              <img src={item.img} class="img-fluid" alt={item.name} />
+              <div class="class-info">
+                <h3 class="card-name mb-1">{item.name}</h3>
+                <p class="card-description mt-3 card-description-text">{truncate(item.description)}</p>
+                <div class="tag-container">
+                  <ul class="list-inline mt-3 tag-container">
+                    {item.skill.slice(0, 3).map((s) => (
+                      <li class="list-inline-item">
+                        <span class="tag"><strong>{capitalize(s)}</strong></span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="col-lg-12 text-right mt-5" data-aos="fade-up" data-anim-id="more-btn">
+        <a href="#" data-toggle="modal" data-target="#projectList" class="custom-btn-text mt-3 flex-fill mx-2 smoothScroll" role="button" aria-label="Ver más proyectos">
+          Más proyectos &nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ projects }}>
+  (function () {
+    function init() {
+      const container = document.getElementById('proyecto');
+      if (!container) return;
+      const truncate = (s, max = 150) => (s.length > max ? s.slice(0, max) + '...' : s);
+      const cap = (s) => s.charAt(0).toUpperCase() + s.toLowerCase().slice(1);
+      const itemsToShow = () => (window.innerWidth < 768 ? 1 : 3);
+      function render() {
+        const n = itemsToShow();
+        const limited = projects.slice(0, n);
+        container.innerHTML = limited
+          .map(
+            (item, i) => `
+        <div class="col-lg-4 col-md-6 col-12 pb-5" data-aos="fade-up" data-anim-item="card-item">
+          <div class="class-thumb" data-toggle="modal" data-target="#projectModal" data-title="${item.name.replace(/"/g, '&quot;')}" data-description="${item.description.replace(/"/g, '&quot;')}" data-img="${item.img}" data-date="${item.date || ''}" data-repository="${item.repository || ''}" role="button" tabindex="0">
+            <img src="${item.img}" class="img-fluid" alt="${item.name.replace(/"/g, '&quot;')}" />
+            <div class="class-info">
+              <h3 class="card-name mb-1">${item.name}</h3>
+              <p class="card-description mt-3 card-description-text">${truncate(item.description)}</p>
+              <div class="tag-container">
+                <ul class="list-inline mt-3 tag-container">
+                  ${item.skill.slice(0, 3).map((s) => `<li class="list-inline-item"><span class="tag"><strong>${cap(s)}</strong></span></li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>`
+          )
+          .join('');
+        const thumbs = container.querySelectorAll('.class-thumb[data-target="#projectModal"]');
+        thumbs.forEach((el) => {
+          el.addEventListener('click', function () {
+            const t = this;
+            const titleEl = document.getElementById('projectModalLabel');
+            const descEl = document.getElementById('modalDescription');
+            const imgEl = document.getElementById('modalImage');
+            const dateEl = document.getElementById('modalDate');
+            const linkEl = document.getElementById('modalLink');
+            if (titleEl) titleEl.textContent = t.dataset.title || '';
+            if (descEl) descEl.textContent = truncate(t.dataset.description || '');
+            if (imgEl) { imgEl.src = t.dataset.img || ''; imgEl.alt = t.dataset.title || ''; }
+            if (dateEl) dateEl.textContent = t.dataset.date ? 'Fecha: ' + t.dataset.date : '';
+            if (linkEl) {
+              linkEl.href = t.dataset.repository || '#';
+              linkEl.style.display = t.dataset.repository ? 'block' : 'none';
+            }
+          });
+        });
+      }
+      function fillTable() {
+        const tbody = document.querySelector('#projectList .modal-body tbody');
+        if (!tbody) return;
+        tbody.innerHTML = projects
+          .map(
+            (p) => `
+        <tr>
+          <td>${p.name}</td>
+          <td>${p.date ?? '-'}</td>
+          <td>${p.repository ? `<button type="button" class="btn custom-btn-table w-100 mb-2 pl-2 pr-2" onclick="window.open('${p.repository}', '_blank')">Ver</button>` : '-'}</td>
+        </tr>`
+          )
+          .join('');
+      }
+      fillTable();
+      render();
+      if (window.applyGlobalAnimations) window.applyGlobalAnimations();
+
+      window.addEventListener('resize', () => {
+        render();
+        if (window.applyGlobalAnimations) window.applyGlobalAnimations();
+      });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

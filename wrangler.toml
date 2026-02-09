@@ -1,0 +1,11 @@
+name = "personal-portfolio"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "personal-portfolio"
+database_id = "a2a9735b-a3b2-4c1e-a381-e5ecbed4f726"
+
+[vars]
+# Public env (no secrets). Secrets via .dev.vars (local) and Cloudflare Dashboard (prod)

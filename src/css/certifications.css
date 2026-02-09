@@ -1,0 +1,15 @@
+.certifications {
+  background: var(--certificaciones-bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.certifications .row[role="list"] {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
