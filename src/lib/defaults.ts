@@ -11,12 +11,6 @@ export const defaultHead = {
     image: '/images/icon/android-chrome-512x512.png',
     description: 'Perfil de Mauricio Núñez Lagos, ingeniero de software.',
   },
-  twitterCard: {
-    card: 'summary_large_image',
-    title: 'Mauricio Núñez Lagos - Software Engineer',
-    description: 'Explora mis proyectos y certificaciones en el mundo del desarrollo de software.',
-    image: '/images/icon/android-chrome-512x512.png',
-  },
 };
 
 export const defaultHome = {
@@ -26,8 +20,7 @@ export const defaultHome = {
   aboutText: 'Mas Información',
   socialLinks: [
     { url: 'https://www.linkedin.com/in/mauricio-marcell-nuñez-lagos-819823252/', iconClass: 'fa-linkedin' },
-    { url: 'https://www.github.com/nunezlagos', iconClass: 'fa-github' },
-    { url: '#', iconClass: 'fa-twitter' },
+    { url: 'https://www.github.com/nunezlagos', iconClass: 'fa-github' }
   ],
 };
 

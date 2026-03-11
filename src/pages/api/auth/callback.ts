@@ -1,24 +1,19 @@
 import type { APIRoute } from 'astro';
-import { createSession, setSessionCookie, getSessionSecret } from '../../../lib/auth';
-import { isAllowedAdmin } from '../../../lib/db';
+import { createSession, setSessionCookie, getSessionSecret, isAllowedAdmin } from '../../../lib/auth';
 import { getEnv } from '@/lib/env';
 
 export const GET: APIRoute = async ({ request, locals }) => {
   const url = new URL(request.url);
   const runtimeEnv = locals.runtime?.env as Record<string, unknown> | undefined;
-  const env = getEnv(runtimeEnv) as Record<string, string | undefined> & {
-    DB?: import('@cloudflare/workers-types').D1Database;
-  };
-  Object.assign(env, runtimeEnv);
+  const env = getEnv(runtimeEnv) as Record<string, string | undefined>;
   const appUrl = env.PUBLIC_APP_URL || url.origin;
   try {
     const code = url.searchParams.get('code');
     const clientId = env.GOOGLE_CLIENT_ID;
     const clientSecret = env.GOOGLE_CLIENT_SECRET;
     const secret = getSessionSecret(env);
-    const db = env.DB;
 
-    if (!code || !clientId || !clientSecret || !secret || !db) {
+    if (!code || !clientId || !clientSecret || !secret) {
       return Response.redirect(appUrl + '/admin-dashboard?error=auth_config', 302);
     }
 
@@ -34,7 +29,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         grant_type: 'authorization_code',
       }),
     });
-      if (!tokenRes.ok) {
+    if (!tokenRes.ok) {
       return Response.redirect(appUrl + '/admin-dashboard?error=token', 302);
     }
     const tokens = await tokenRes.json();
@@ -55,8 +50,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       return Response.redirect(appUrl + '/admin-dashboard?error=email', 302);
     }
 
-    const allowed = await isAllowedAdmin(db, email);
-    if (!allowed) {
+    if (!isAllowedAdmin(env, email)) {
       return Response.redirect(appUrl + '/admin-dashboard?error=forbidden', 302);
     }
 

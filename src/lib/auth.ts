@@ -44,3 +44,25 @@ export function setSessionCookie(token: string, baseUrl: string): string {
 export function clearSessionCookie(): string {
   return `${COOKIE_NAME}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
 }
+
+/** Comprueba si el email está en ALLOWED_ADMIN_EMAILS (lista separada por comas). */
+export function isAllowedAdmin(
+  env: Record<string, string | undefined>,
+  email: string
+): boolean {
+  const list = env.ALLOWED_ADMIN_EMAILS;
+  if (!list) return false;
+  const allowed = list
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  return allowed.includes(email.toLowerCase());
+}
+
+/** Devuelve el rol del usuario: 'administrador' si está en ALLOWED_ADMIN_EMAILS, si no 'lector'. */
+export function getUserRole(
+  env: Record<string, string | undefined>,
+  email: string
+): 'administrador' | 'lector' {
+  return isAllowedAdmin(env, email) ? 'administrador' : 'lector';
+}

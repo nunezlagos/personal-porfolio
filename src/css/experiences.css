@@ -59,6 +59,7 @@
   color: var(--white-color);
   box-shadow: 0 0 10px rgba(92, 207, 230, 0.5);
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .timeline-item.right .timeline-icon {
@@ -80,12 +81,13 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .timeline-content:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  border-color: var(--primary-color);
+  border-color: rgba(92, 207, 230, 0.35);
 }
 
 /* Arrows */

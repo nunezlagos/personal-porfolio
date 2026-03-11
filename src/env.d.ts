@@ -3,10 +3,8 @@
 
 declare namespace App {
   interface Locals {
-    runtime: {
-      env: {
-        DB: import('@cloudflare/workers-types').D1Database;
-      };
+    runtime?: {
+      env?: Record<string, unknown>;
     };
   }
 }

@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .astro/
+.wrangler/
+*.sqlite
+*.sqlite3
 .env
 .env.*
 !.env.example

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getSection, updateSection, isAllowedAdmin, type SectionKey } from '@/lib/db';
-import { verifySession, getSessionCookie, getSessionSecret } from '@/lib/auth';
+import { getStaticSection, type SectionKey } from '@/lib/content';
+import { verifySession, getSessionCookie, getSessionSecret, isAllowedAdmin } from '@/lib/auth';
 import { getEnv } from '@/lib/env';
 
 const VALID_KEYS: SectionKey[] = ['head', 'home', 'about', 'projects', 'certifications', 'experiences'];
@@ -9,7 +9,7 @@ function isValidKey(k: string): k is SectionKey {
   return VALID_KEYS.includes(k as SectionKey);
 }
 
-export const GET: APIRoute = async ({ params, locals }) => {
+export const GET: APIRoute = async ({ params }) => {
   const key = params.key;
   if (!key || !isValidKey(key)) {
     return new Response(JSON.stringify({ error: 'Invalid section key' }), {
@@ -17,25 +17,13 @@ export const GET: APIRoute = async ({ params, locals }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  const db = (locals.runtime?.env as { DB?: import('@cloudflare/workers-types').D1Database })?.DB;
-  if (!db) {
-    return new Response(JSON.stringify({ error: 'Database not available' }), {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  const content = await getSection(db, key);
-  if (content === null) {
-    return new Response(JSON.stringify({ error: 'Not found' }), {
-      status: 404,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  const content = getStaticSection(key);
   return new Response(JSON.stringify(content), {
     headers: { 'Content-Type': 'application/json' },
   });
 };
 
+/** Guarda en src/data/*.json cuando hay filesystem (dev local); si no, 501. */
 export const PUT: APIRoute = async ({ params, request, locals }) => {
   const key = params.key;
   if (!key || !isValidKey(key)) {
@@ -44,18 +32,10 @@ export const PUT: APIRoute = async ({ params, request, locals }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  const runtimeEnv = locals.runtime?.env as Record<string, unknown> | undefined;
-  const env = { ...getEnv(runtimeEnv), ...runtimeEnv } as Record<string, string | undefined> & { DB?: import('@cloudflare/workers-types').D1Database };
-  const db = env.DB;
+  const env = getEnv(locals.runtime?.env as Record<string, unknown> | undefined) as Record<string, string | undefined>;
   const secret = getSessionSecret(env);
-  if (!db || !secret) {
-    return new Response(JSON.stringify({ error: 'Server error' }), {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
   const cookie = getSessionCookie(request.headers);
-  if (!cookie) {
+  if (!secret || !cookie) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -68,8 +48,7 @@ export const PUT: APIRoute = async ({ params, request, locals }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  const allowed = await isAllowedAdmin(db, session.email);
-  if (!allowed) {
+  if (!isAllowedAdmin(env, session.email)) {
     return new Response(JSON.stringify({ error: 'Forbidden' }), {
       status: 403,
       headers: { 'Content-Type': 'application/json' },
@@ -78,21 +57,36 @@ export const PUT: APIRoute = async ({ params, request, locals }) => {
   let body: string;
   try {
     const raw = await request.json();
-    body = typeof raw === 'string' ? raw : JSON.stringify(raw);
+    body = typeof raw === 'string' ? raw : JSON.stringify(raw, null, 2);
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  const result = await updateSection(db, key, body);
-  if (!result.success) {
-    return new Response(JSON.stringify({ error: result.error ?? 'Update failed' }), {
-      status: 500,
+  try {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const root = typeof process !== 'undefined' && process.cwd ? process.cwd() : '';
+    if (!root) throw new Error('No cwd');
+    const filePath = path.join(root, 'src', 'data', `${key}.json`);
+    const dataDir = path.join(root, 'src', 'data');
+    if (!fs.existsSync(dataDir)) throw new Error('src/data no encontrado');
+    fs.writeFileSync(filePath, body, 'utf-8');
+    return new Response(JSON.stringify({ ok: true }), {
       headers: { 'Content-Type': 'application/json' },
     });
+  } catch (e) {
+    return new Response(
+      JSON.stringify({
+        error:
+          'No se pudo guardar en disco (en producción no hay filesystem). Edita los JSON en src/data y vuelve a desplegar.',
+        detail: e instanceof Error ? e.message : String(e),
+      }),
+      {
+        status: 501,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
-  return new Response(JSON.stringify({ ok: true }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
 };

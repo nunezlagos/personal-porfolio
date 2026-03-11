@@ -2,7 +2,7 @@
 ---
 
 <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered modal-auto" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="contactModalLabel">Contacto</h5>
@@ -11,21 +11,61 @@
         </button>
       </div>
       <div class="modal-body">
+        <!-- Contact Info Cards -->
+        <div class="row mb-4 contact-info-cards">
+          <div class="col-lg-4 col-md-4 col-12 mb-3 mb-md-0">
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="contact-text">
+                <h6 class="mb-1">WhatsApp</h6>
+                <p class="mb-0">+00 000 000 000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-12 mb-3 mb-md-0">
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h6 class="mb-1">Email</h6>
+                <p class="mb-0">contacto@nunezlagos.com</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-12">
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fa fa-language"></i>
+              </div>
+              <div class="contact-text">
+                <h6 class="mb-1">Idiomas</h6>
+                <p class="mb-0">Inglés, Portugués</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-divider mb-4"></div>
+
         <form id="contactForm">
           <div class="form-group">
-            <label for="contactName">Nombre</label>
-            <input id="contactName" name="name" class="form-control" type="text" autocomplete="name" required />
-          </div>
-          <div class="form-group">
             <label for="contactEmail">Email</label>
-            <input id="contactEmail" name="email" class="form-control" type="email" autocomplete="email" required />
+            <input id="contactEmail" name="email" class="form-control" type="email" autocomplete="email" placeholder="Tu Email" required />
           </div>
+          
           <div class="form-group">
             <label for="contactMessage">Mensaje</label>
-            <textarea id="contactMessage" name="message" class="form-control" rows="4" required></textarea>
+            <textarea id="contactMessage" name="message" class="form-control" rows="4" required>Me gustaria contactarse</textarea>
           </div>
-          <button type="submit" class="btn custom-btn w-100 mt-3">Enviar</button>
-          <button type="button" class="btn custom-btn w-100 mt-3" data-dismiss="modal">Cerrar</button>
+          
+          <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+               <button type="submit" class="btn custom-btn w-100 mt-3">Enviar Mensaje</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -43,18 +83,23 @@
         const to = document.body.getAttribute('data-contact-email') || '';
         if (!to) return;
 
-        const name = document.getElementById('contactName')?.value || '';
         const email = document.getElementById('contactEmail')?.value || '';
         const message = document.getElementById('contactMessage')?.value || '';
-
         const subject = encodeURIComponent('Contacto desde el portafolio');
-        const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\n${message}`);
+        
+        const body = encodeURIComponent(`Email: ${email}\n\n${message}`);
         window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
 
         if (typeof jQuery !== 'undefined') {
           jQuery('#contactModal').modal('hide');
         }
+        // Don't reset form completely to keep the default message, or handle it smartly
+        // form.reset(); 
+        // Instead of full reset, just clear email? Or maybe keep it simple.
+        // User might want to send another. 
+        // Let's reset but restore the default message.
         form.reset();
+        document.getElementById('contactMessage').value = "Me gustaria contactarse";
       });
     }
 

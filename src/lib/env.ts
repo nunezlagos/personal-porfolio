@@ -37,8 +37,12 @@ function loadDevVars(): Record<string, string> {
 
 export function getEnv(runtimeEnv: Record<string, unknown> | undefined): Record<string, string | undefined> {
   const fromRuntime = (runtimeEnv ?? {}) as Record<string, string | undefined>;
-  const hasRuntimeVars = fromRuntime.GOOGLE_CLIENT_ID ?? fromRuntime.SESSION_SECRET;
-  if (hasRuntimeVars) return fromRuntime;
-  const dev = loadDevVars();
+  let dev: Record<string, string> = {};
+  try {
+    dev = loadDevVars();
+  } catch {
+    // En Workers no hay fs; usar solo runtime
+  }
+  // Mezclar: .dev.vars como base y runtime sobreescribe (para que en dev tengamos todo)
   return { ...dev, ...fromRuntime };
 }

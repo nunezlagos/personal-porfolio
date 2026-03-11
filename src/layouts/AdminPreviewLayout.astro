@@ -1,16 +1,34 @@
 ---
+/**
+ * Layout para el admin "copia de la página principal editable".
+ * Usa los mismos estilos que la página principal (main.css) + admin.css para la barra y formularios.
+ */
 import '../css/main.css';
+import '../css/admin.css';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   keywords?: string;
   author?: string;
   ogImage?: string;
   ogUrl?: string;
+  isLoggedIn?: boolean;
+  email?: string;
+  role?: 'administrador' | 'lector';
 }
 
-const { title, description, keywords = '', author = '', ogImage = '/images/icon/android-chrome-512x512.png', ogUrl = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  keywords = '',
+  author = '',
+  ogImage = '/images/icon/android-chrome-512x512.png',
+  ogUrl = '',
+  isLoggedIn = false,
+  email = '',
+  role = 'lector',
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -19,30 +37,63 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{title}</title>
+    <title>{title} | Admin</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
-
-    <!-- No indexar ni seguir enlaces; reducir crawling y scraping por IA -->
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
     <meta name="googlebot" content="noindex, nofollow" />
-
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={ogUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:description" content={description} />
-
     <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/plugins/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/plugins/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/plugins/aos.css" />
   </head>
-  <body data-spy="scroll" data-target="#navbarNav" data-offset="50" data-contact-email="contacto@nunezlagos.com">
+  <body
+    data-spy="scroll"
+    data-target="#navbarNav"
+    data-offset="50"
+    data-contact-email="contacto@nunezlagos.com"
+    class:list={[isLoggedIn && 'admin-preview-mode']}
+  >
     <canvas id="global-canvas"></canvas>
-    
+    {/* Barra fija arriba: branding + toolbar de edición */}
+    {isLoggedIn && (
+      <>
+        {/* Fondo detrás del navbar: cuando el navbar se oculta en la home, se ve este color y no hay franja negra */}
+        <div class="admin-navbar-backdrop" aria-hidden="true"></div>
+        <header class="admin-preview-bar">
+          <div class="admin-preview-bar-inner">
+            <span class="admin-preview-brand">Admin</span>
+            <span class="admin-preview-spacer" aria-hidden="true"></span>
+            <span class="admin-preview-role" title="Rol logueado">{role === 'administrador' ? 'Administrador' : 'Lector'}</span>
+          </div>
+        </header>
+        <aside class="admin-edit-sidebar" aria-label="Editar secciones">
+          <div class="admin-edit-sidebar-top">
+            <span class="admin-edit-sidebar-label">Editar</span>
+            <nav class="admin-edit-sidebar-nav" aria-label="Secciones editables">
+              <button type="button" class="admin-edit-pill" data-section="head" aria-label="SEO y Home"><i class="fa fa-cog" aria-hidden="true"></i><span>SEO / Home</span></button>
+              <button type="button" class="admin-edit-pill" data-section="about" aria-label="Sobre mí"><i class="fa fa-user" aria-hidden="true"></i><span>Sobre mí</span></button>
+              <button type="button" class="admin-edit-pill" data-section="projects" aria-label="Proyectos"><i class="fa fa-folder-open" aria-hidden="true"></i><span>Proyectos</span></button>
+              <button type="button" class="admin-edit-pill" data-section="certifications" aria-label="Certificaciones"><i class="fa fa-certificate" aria-hidden="true"></i><span>Certificaciones</span></button>
+              <button type="button" class="admin-edit-pill" data-section="experiences" aria-label="Experiencia"><i class="fa fa-briefcase" aria-hidden="true"></i><span>Experiencia</span></button>
+            </nav>
+          </div>
+          <div class="admin-edit-sidebar-bottom">
+            <a href="/" class="admin-edit-sidebar-link" target="_blank" rel="noopener" title="Ver sitio"><i class="fa fa-external-link" aria-hidden="true"></i><span>Ver sitio</span></a>
+            <a href="/api/auth/logout" class="admin-preview-btn admin-edit-sidebar-logout">Cerrar sesión</a>
+          </div>
+        </aside>
+      </>
+    )}
+
     <slot />
+
     <script is:inline src="/js/jquery.min.js"></script>
     <script is:inline src="/js/bootstrap.min.js"></script>
     <script is:inline src="/js/aos.js"></script>
@@ -50,16 +101,15 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
     <script is:inline src="/js/navbar.js"></script>
     <script is:inline src="/js/animations.js"></script>
     <script is:inline src="/js/starfield.js"></script>
-    
+
     <button id="floatingActionBtn" class="scroll-top" aria-label="Contacto">
       <i class="fa fa-envelope" aria-hidden="true"></i>
     </button>
 
     <script is:inline>
-      (function() {
+      (function () {
         const btn = document.getElementById('floatingActionBtn');
         if (!btn) return;
-
         const navbar = document.querySelector('.navbar');
         const home = document.getElementById('home');
         const icon = btn.querySelector('i');
@@ -84,19 +134,15 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
         }
 
         function openContactModal() {
-          if (typeof jQuery !== 'undefined') {
-            jQuery('#contactModal').modal('show');
-          }
+          if (typeof jQuery !== 'undefined') jQuery('#contactModal').modal('show');
         }
 
         function update() {
           const inHome = isInHome();
-
           if (navbar) {
             if (inHome) navbar.classList.add('navbar-hidden');
             else navbar.classList.remove('navbar-hidden');
           }
-
           if (inHome) {
             btn.classList.add('show');
             setMode('contact');
@@ -105,10 +151,7 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
             if (window.scrollY > 300) btn.classList.add('show');
             else btn.classList.remove('show');
           }
-
-          if (!contactEmail && btn.dataset.mode === 'contact') {
-            btn.classList.remove('show');
-          }
+          if (!contactEmail && btn.dataset.mode === 'contact') btn.classList.remove('show');
         }
 
         btn.addEventListener('click', () => {
@@ -132,7 +175,6 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
           },
           { passive: true }
         );
-
         window.addEventListener('resize', update);
         update();
       })();

@@ -8,7 +8,7 @@ import Certifications from '../components/Certifications.astro';
 import Experiences from '../components/Experiences.astro';
 import Footer from '../components/Footer.astro';
 import Modals from '../components/Modals.astro';
-import { getSection } from '../lib/db';
+import { getSection } from '../lib/content';
 import {
   defaultHead,
   defaultHome,
@@ -26,24 +26,20 @@ let certificationsData = defaultCertifications;
 let experiencesData = defaultExperiences;
 
 try {
-  const runtime = Astro.locals.runtime;
-  const db = runtime?.env?.DB;
-  if (db) {
-    const [head, home, about, projects, certifications, experiences] = await Promise.all([
-      getSection<typeof defaultHead>(db, 'head'),
-      getSection<typeof defaultHome>(db, 'home'),
-      getSection<typeof defaultAbout>(db, 'about'),
-      getSection<typeof defaultProjects>(db, 'projects'),
-      getSection<typeof defaultCertifications>(db, 'certifications'),
-      getSection<typeof defaultExperiences>(db, 'experiences'),
-    ]);
-    if (head) meta = head;
-    if (home) homeData = home;
-    if (about) aboutData = about;
-    if (Array.isArray(projects)) projectsData = projects;
-    if (Array.isArray(certifications)) certificationsData = certifications;
-    if (Array.isArray(experiences)) experiencesData = experiences;
-  }
+  const [head, home, about, projects, certifications, experiences] = await Promise.all([
+    getSection<typeof defaultHead>('head'),
+    getSection<typeof defaultHome>('home'),
+    getSection<typeof defaultAbout>('about'),
+    getSection<typeof defaultProjects[]>('projects'),
+    getSection<typeof defaultCertifications[]>('certifications'),
+    getSection<typeof defaultExperiences[]>('experiences'),
+  ]);
+  if (head && typeof head === 'object' && 'title' in head) meta = head as typeof defaultHead;
+  if (home && typeof home === 'object') homeData = home as typeof defaultHome;
+  if (about && typeof about === 'object') aboutData = about as typeof defaultAbout;
+  if (Array.isArray(projects)) projectsData = projects as typeof defaultProjects;
+  if (Array.isArray(certifications)) certificationsData = certifications as typeof defaultCertifications;
+  if (Array.isArray(experiences)) experiencesData = experiences as typeof defaultExperiences;
 } catch {
   // keep defaults
 }

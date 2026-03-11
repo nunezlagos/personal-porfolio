@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "astro dev --port 3333",
     "build": "astro build",
+    "prebuild": "node scripts/generate-biblioteca.js",
+    "biblioteca": "node scripts/generate-biblioteca.js",
+    "robots": "node scripts/generate-robots.js",
+    "predev": "node scripts/generate-biblioteca.js",
     "preview": "astro preview",
-    "db:local:create": "wrangler d1 execute personal-portfolio --local --file=./schema.sql",
-    "db:local:seed": "wrangler d1 execute personal-portfolio --local --file=./seed.sql",
-    "db:remote:create": "wrangler d1 execute personal-portfolio --remote --file=./schema.sql",
-    "db:remote:seed": "wrangler d1 execute personal-portfolio --remote --file=./seed.sql",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -20,7 +20,9 @@
     "jose": "^5.2.0"
   },
   "devDependencies": {
+    "@astrojs/node": "^9.5.5",
     "@vitest/coverage-v8": "^2.1.0",
+    "generate-robotstxt": "^8.0.3",
     "vitest": "^2.1.0",
     "wrangler": "^3.78.0"
   }

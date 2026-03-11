@@ -218,6 +218,7 @@ body::-webkit-scrollbar {
   font-size: var(--p-font-size);
   white-space: nowrap;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.32);
+  cursor: pointer;
 }
 
 .custom-btn:hover {
@@ -232,6 +233,7 @@ body::-webkit-scrollbar {
   border: 2px solid var(--white-color);
   padding: 10px 20px;
   border-radius: var(--border-radius-medium);
+  cursor: pointer;
 }
 
 .bordered-btn:hover {

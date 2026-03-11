@@ -117,21 +117,58 @@ const displayItems = projects.slice(0, 3);
           });
         });
       }
-      function fillTable() {
-        const tbody = document.querySelector('#projectList .modal-body tbody');
-        if (!tbody) return;
-        tbody.innerHTML = projects
+      function fillList() {
+        const container = document.getElementById('projectListCards');
+        if (!container) return;
+        const truncate = (s, max = 120) => (s.length > max ? s.slice(0, max) + '...' : s);
+        const cap = (s) => s.charAt(0).toUpperCase() + s.toLowerCase().slice(1);
+        container.innerHTML = projects
           .map(
             (p) => `
-        <tr>
-          <td>${p.name}</td>
-          <td>${p.date ?? '-'}</td>
-          <td>${p.repository ? `<button type="button" class="btn custom-btn-table w-100 mb-2 pl-2 pr-2" onclick="window.open('${p.repository}', '_blank')">Ver</button>` : '-'}</td>
-        </tr>`
+        <article class="modal-list-card" role="listitem" data-title="${p.name.replace(/"/g, '&quot;')}" data-description="${p.description.replace(/"/g, '&quot;')}" data-img="${p.img}" data-date="${p.date || ''}" data-repository="${p.repository || ''}" data-url="${p.url || ''}" tabindex="0">
+          <div class="modal-list-card-img">
+            <img src="${p.img}" alt="" loading="lazy" />
+          </div>
+          <div class="modal-list-card-body">
+            <h6 class="modal-list-card-title">${p.name.replace(/</g, '&lt;')}</h6>
+            <p class="modal-list-card-meta">${p.date ? p.date : 'Sin fecha'}</p>
+            <p class="modal-list-card-desc">${truncate(p.description).replace(/</g, '&lt;')}</p>
+            <div class="modal-list-card-tags">
+              ${(p.skill || []).slice(0, 4).map((s) => `<span class="modal-list-card-tag">${cap(s)}</span>`).join('')}
+            </div>
+            <div class="modal-list-card-links">
+              ${p.repository ? `<a href="${p.repository}" class="modal-list-card-link" target="_blank" rel="noopener" onclick="event.stopPropagation()">Código <i class="fa fa-github" aria-hidden="true"></i></a>` : ''}
+              ${p.url ? `<a href="${p.url}" class="modal-list-card-link" target="_blank" rel="noopener" onclick="event.stopPropagation()">Sitio <i class="fa fa-external-link" aria-hidden="true"></i></a>` : ''}
+            </div>
+          </div>
+        </article>`
           )
           .join('');
+        container.querySelectorAll('.modal-list-card').forEach((el) => {
+          el.addEventListener('click', function (e) {
+            if (e.target.closest('.modal-list-card-link')) return;
+            const t = this;
+            const titleEl = document.getElementById('projectModalLabel');
+            const descEl = document.getElementById('modalDescription');
+            const imgEl = document.getElementById('modalImage');
+            const dateEl = document.getElementById('modalDate');
+            const linkEl = document.getElementById('modalLink');
+            if (titleEl) titleEl.textContent = t.dataset.title || '';
+            if (descEl) descEl.textContent = (t.dataset.description || '').length > 150 ? (t.dataset.description || '').slice(0, 150) + '...' : (t.dataset.description || '');
+            if (imgEl) { imgEl.src = t.dataset.img || ''; imgEl.alt = t.dataset.title || ''; }
+            if (dateEl) dateEl.textContent = t.dataset.date ? 'Fecha: ' + t.dataset.date : '';
+            if (linkEl) {
+              linkEl.href = t.dataset.repository || t.dataset.url || '#';
+              linkEl.style.display = (t.dataset.repository || t.dataset.url) ? 'block' : 'none';
+            }
+            if (window.jQuery) {
+              window.jQuery('#projectList').modal('hide');
+              window.jQuery('#projectModal').modal('show');
+            }
+          });
+        });
       }
-      fillTable();
+      fillList();
       render();
       if (window.applyGlobalAnimations) window.applyGlobalAnimations();
 

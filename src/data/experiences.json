@@ -1,0 +1,18 @@
+[
+  {
+    "id": "001",
+    "dateFrom": "28/04/2025",
+    "dateTo": "Actualidad",
+    "position": "Ingeniero de Software",
+    "place": "SAARGO",
+    "resume": "Como Ingeniero de Software en SAARGO, se han desarrollado herramientas personalizadas utilizando PHP en sus distintas versiones, priorizando siempre la optimización y el rendimiento."
+  },
+  {
+    "id": "002",
+    "dateFrom": "01/01/2024",
+    "dateTo": "28/04/2024",
+    "position": "Analista Programador (Practicante)",
+    "place": "SAARGO",
+    "resume": "Durante su etapa como Analista Programador (Practicante) en SAARGO, se diseñaron soluciones para optimizar procesos repetitivos mediante el desarrollo de una herramienta en PHP 8.2."
+  }
+]
