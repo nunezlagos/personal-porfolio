@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local Wrangler. Never commit .dev.vars.
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+SESSION_SECRET=your-32-byte-hex-secret
+PUBLIC_APP_URL=http://localhost:3333

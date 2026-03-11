@@ -1,0 +1,69 @@
+.home {
+  background: var(--main-bg-color);
+  background-size: 400% 400%;
+  animation: gradient-animation 15s ease infinite;
+  min-height: 100vh;
+  position: relative;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+#home-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.6;
+  
+}
+
+.bg-overlay {
+  z-index: 1;
+}
+
+.home .container {
+  position: relative;
+  z-index: 3;
+}
+
+.home .home-title {
+  color: var(--home-title-color);
+}
+
+.home .home-subtitle {
+  color: var(--home-subtitle-color);
+}
+
+.social-icon {
+  position: relative;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.social-icon ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.social-icon li a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--white-color);
+  font-size: var(--p-font-size);
+  font-weight: var(--font-weight-bold);
+  margin: 5px 10px;
+  text-align: center;
+}
+
+.social-icon li a:hover {
+  color: var(--primary-color);
+}
+
+

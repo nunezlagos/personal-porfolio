@@ -1,0 +1,14 @@
+{
+  "title": "Mauricio Núñez Lagos - Software Engineer",
+  "description": "Perfil de Mauricio Núñez Lagos, ingeniero de software, desarrollo backend y ciberseguridad.",
+  "keywords": "Mauricio Núñez, Software Engineer, Desarrollo Backend, Ciberseguridad, Proyectos, Certificaciones",
+  "author": "Mauricio Núñez Lagos",
+  "favicon": "/images/icon/favicon.ico",
+  "openGraph": {
+    "title": "Mauricio Núñez Lagos - Software Engineer",
+    "type": "website",
+    "url": "https://nunezlagos.com",
+    "image": "/images/icon/android-chrome-512x512.png",
+    "description": "Perfil de Mauricio Núñez Lagos, ingeniero de software."
+  }
+}

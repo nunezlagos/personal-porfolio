@@ -1,0 +1,83 @@
+[
+  {
+    "id": "001",
+    "name": "Scrum Foundation",
+    "date": "01/02/2024",
+    "description": "La certificación Scrum Foundation respalda el dominio de los principios ágiles y Scrum.",
+    "img": "/biblioteca/certificados/sfpc.png",
+    "repository": "",
+    "skill": ["Agile", "Team Work"]
+  },
+  {
+    "id": "002",
+    "name": "Certificación Demo 02",
+    "date": "10/02/2024",
+    "description": "Certificación de ejemplo para validar el escalado de tarjetas y el listado completo.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-02",
+    "skill": ["Agile", "Productivity"]
+  },
+  {
+    "id": "003",
+    "name": "Certificación Demo 03",
+    "date": "20/02/2024",
+    "description": "Certificación de ejemplo para probar truncado de descripción en la UI.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-03",
+    "skill": ["Cloud", "Basics"]
+  },
+  {
+    "id": "004",
+    "name": "Certificación Demo 04",
+    "date": "01/03/2024",
+    "description": "Certificación de ejemplo para validar consistencia visual y responsive.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-04",
+    "skill": ["Frontend", "Ui"]
+  },
+  {
+    "id": "005",
+    "name": "Certificación Demo 05",
+    "date": "15/03/2024",
+    "description": "Certificación de ejemplo orientada a prácticas de seguridad y buenas prácticas.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-05",
+    "skill": ["Security", "Best Practices"]
+  },
+  {
+    "id": "006",
+    "name": "Certificación Demo 06",
+    "date": "01/04/2024",
+    "description": "Certificación de ejemplo para completar el set y revisar el modal de tabla.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-06",
+    "skill": ["Testing", "Quality"]
+  },
+  {
+    "id": "007",
+    "name": "Certificación Demo 07",
+    "date": "20/04/2024",
+    "description": "Certificación de ejemplo para verificar la grilla cuando hay muchos elementos.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-07",
+    "skill": ["Devops", "Tooling"]
+  },
+  {
+    "id": "008",
+    "name": "Certificación Demo 08",
+    "date": "10/05/2024",
+    "description": "Certificación de ejemplo para probar el scroll y el header sticky del listado.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-08",
+    "skill": ["Css", "Responsive"]
+  },
+  {
+    "id": "009",
+    "name": "Certificación Demo 09",
+    "date": "01/06/2024",
+    "description": "Certificación de ejemplo para llegar a 9 ítems y validar el escalado final.",
+    "img": "/biblioteca/certificados/example.jpg",
+    "repository": "https://example.com/credencial-09",
+    "skill": ["A11y", "Ui"]
+  }
+]

@@ -1,0 +1,7 @@
+name = "personal-portfolio"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Public env (no secrets). Secrets via .dev.vars (local) y Cloudflare Dashboard (prod)
+# ALLOWED_ADMIN_EMAILS = "tu@email.com" (lista separada por comas)

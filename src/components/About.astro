@@ -1,0 +1,83 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+  cvUrl: string;
+  cvText: string;
+  projectsUrl: string;
+  projectsText: string;
+  certificationsUrl: string;
+  certificationsText: string;
+  experiencesUrl: string;
+  experiencesText: string;
+}
+const { name, title, description, cvUrl, cvText, projectsUrl, projectsText, certificationsUrl, certificationsText, experiencesUrl, experiencesText } = Astro.props;
+---
+
+<section class="about section" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-7 mx-auto mt-lg-5 mb-lg-0">
+        <h2 class="about-name" data-aos="fade-up" data-anim-id="about-name">{name}</h2>
+        <h6 class="about-title mb-4" data-aos="fade-up" data-anim-id="about-title">{title}</h6>
+        <div class="about-description about-p" data-aos="fade-up" data-anim-id="about-desc" id="about-description-wrap">
+          <span id="about-description-text">{description}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-7 mx-auto mt-lg-5 mb-lg-0">
+        <div class="col-lg-10 col-md-7 mx-auto d-flex flex-column justify-content-center align-items-center" style="padding-left: 15px; padding-right: 15px;" data-anim-container="about-btn-group">
+          <div class="d-flex flex-wrap justify-content-around align-items-center text-center" style="padding-top: 0; width: 100%" data-aos="fade-up" data-anim-item="about-btn-group">
+            <a id="cv-link" href={cvUrl} class="btn custom-btn flex-fill mx-2" download>{cvText}</a>
+          </div>
+          <div class="d-flex flex-wrap justify-content-around align-items-center text-center" style="padding-top: 40px; width: 100%" data-aos="fade-up" data-anim-item="about-btn-group">
+            <a id="projects-link" href={projectsUrl} class="btn custom-btn flex-fill mx-2 smoothScroll">{projectsText}</a>
+          </div>
+          <div class="d-flex flex-wrap justify-content-around align-items-center text-center" style="padding-top: 40px; width: 100%" data-aos="fade-up" data-anim-item="about-btn-group">
+            <a id="certifications-link" href={certificationsUrl} class="btn custom-btn flex-fill mx-2 smoothScroll">{certificationsText}</a>
+          </div>
+          <div class="d-flex flex-wrap justify-content-around align-items-center text-center" style="padding-top: 40px; width: 100%" data-aos="fade-up" data-anim-item="about-btn-group">
+            <a id="experiences-link" href={experiencesUrl} class="btn custom-btn flex-fill mx-2 smoothScroll">{experiencesText}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ description }}>
+  (function () {
+    const wrap = document.getElementById('about-description-wrap');
+    const el = document.getElementById('about-description-text');
+    if (!wrap || !el) return;
+    const fullText = description;
+    const words = fullText.split(' ');
+    const shortText = words.length > 8 ? words.slice(0, 8).join(' ') + '...' : fullText;
+    let expanded = true;
+
+    function render(showFull) {
+      expanded = showFull;
+      wrap.innerHTML = showFull
+        ? fullText + ' <span class="toggle-description" id="about-toggle">Ver menos</span>'
+        : shortText + ' <span class="toggle-description" id="about-toggle">Ver más</span>';
+    }
+
+    wrap.addEventListener('click', (e) => {
+      if (e.target.id === 'about-toggle') {
+        e.preventDefault();
+        render(!expanded);
+      }
+    });
+
+    function update() {
+      if (window.innerWidth <= 790 && words.length > 8) {
+        render(false);
+      } else {
+        wrap.innerHTML = '';
+        wrap.appendChild(document.createTextNode(fullText));
+      }
+    }
+    update();
+    window.addEventListener('resize', update);
+  })();
+</script>

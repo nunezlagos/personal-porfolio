@@ -1,0 +1,15 @@
+.projects {
+  background: var(--proyectos-bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.projects .row[role="list"] {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+

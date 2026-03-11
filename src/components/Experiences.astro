@@ -1,0 +1,89 @@
+---
+interface Experience {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  position: string;
+  place: string;
+  resume: string;
+}
+interface Props {
+  experiences: Experience[];
+}
+const { experiences } = Astro.props;
+const truncate = (s: string, words = 30) => {
+  const w = s.split(' ');
+  return w.length > words ? w.slice(0, words).join(' ') + '...' : s;
+};
+---
+
+<section class="experience section" id="experiences" role="region" aria-label="Experiences">
+  <div class="container">
+    <div class="row mt-1">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="card-title" data-aos="fade-up" data-anim-id="section-title">EXPERIENCIA LABORAL</h2>
+        <h6 class="card-subtitle" data-aos="fade-up" data-anim-id="section-subtitle">Resumen de experiencia laboral en desarrollo</h6>
+      </div>
+      
+      <div class="col-lg-12">
+        <div class="timeline" id="experiences-timeline">
+          {experiences.map((exp, idx) => {
+            const short = truncate(exp.resume);
+            const isLong = exp.resume.split(' ').length > 30;
+            const sideClass = idx % 2 === 0 ? 'left' : 'right';
+            
+            return (
+              <div class={`timeline-item ${sideClass}`} data-aos="fade-up" data-anim-id="timeline-item" data-exp-index={idx}>
+                <div class="timeline-icon">
+                  <i class="fa fa-briefcase" aria-hidden="true"></i>
+                </div>
+                <div class="timeline-content">
+                  <span class="experience-date">{exp.dateFrom} - {exp.dateTo}</span>
+                  <h3 class="experience-title">{exp.position}</h3>
+                  <h4 class="experience-place">
+                    <i class="fa fa-building-o" aria-hidden="true"></i> {exp.place}
+                  </h4>
+                  <p class="experience-summary">
+                    {isLong ? short : exp.resume}
+                    {isLong && <span class="toggle-resume" data-exp-index={idx}>Ver más</span>}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ experiences }}>
+  (function () {
+    const truncate = (s, words) => (s.split(' ').length > words ? s.split(' ').slice(0, words).join(' ') + '...' : s);
+    
+    document.getElementById('experiences-timeline')?.addEventListener('click', function (e) {
+      const t = e.target;
+      if (!t.classList.contains('toggle-resume')) return;
+      e.preventDefault();
+      
+      const idx = parseInt(t.getAttribute('data-exp-index') || '0', 10);
+      const exp = experiences[idx];
+      if (!exp) return;
+      
+      const full = exp.resume;
+      const short = truncate(full, 30);
+      
+      // Find the summary paragraph in the clicked item
+      const block = t.closest('.timeline-item');
+      const summary = block?.querySelector('.experience-summary');
+      if (!summary) return;
+      
+      if (summary.textContent?.includes('...')) {
+        summary.innerHTML = full + ' <span class="toggle-resume" data-exp-index="' + idx + '">Ver menos</span>';
+      } else {
+        summary.innerHTML = short + ' <span class="toggle-resume" data-exp-index="' + idx + '">Ver más</span>';
+      }
+    });
+  })();
+</script>

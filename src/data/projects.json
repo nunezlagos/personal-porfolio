@@ -1,0 +1,90 @@
+[
+  {
+    "id": "001",
+    "name": "Reactive PorfolioJs",
+    "date": "01/03/2025",
+    "description": "PorfolioJs es un portafolio interactivo que integra JavaScript vanilla con la lectura de archivos JSON, permitiendo que gran parte de la información sea editable sin necesidad de modificar el código fuente.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://www.nunezlagos.cl",
+    "url": "https://www.nunezlagos.cl",
+    "skill": ["JS", "css", "json"]
+  },
+  {
+    "id": "002",
+    "name": "Developer ArchTools",
+    "description": "En desarrollo",
+    "img": "/biblioteca/proyectos/archtools.png",
+    "repository": "https://github.com/nunezlagos/archtools",
+    "skill": ["bash", "archlinux", "desing"]
+  },
+  {
+    "id": "003",
+    "name": "Proyecto Demo 03",
+    "date": "15/03/2025",
+    "description": "Proyecto de ejemplo para validar cómo escala la grilla de tarjetas y el modal de lista.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-03",
+    "url": "https://example.com/proyecto-demo-03",
+    "skill": ["Typescript", "Astro", "Css"]
+  },
+  {
+    "id": "004",
+    "name": "Proyecto Demo 04",
+    "date": "28/03/2025",
+    "description": "Proyecto de ejemplo enfocado en rendimiento, responsive y consistencia visual en el listado.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-04",
+    "url": "https://example.com/proyecto-demo-04",
+    "skill": ["Frontend", "Ui", "A11y"]
+  },
+  {
+    "id": "005",
+    "name": "Proyecto Demo 05",
+    "date": "10/04/2025",
+    "description": "Proyecto de ejemplo con datos suficientes para probar truncado de texto y animaciones.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-05",
+    "url": "https://example.com/proyecto-demo-05",
+    "skill": ["Javascript", "Aos", "Vite"]
+  },
+  {
+    "id": "006",
+    "name": "Proyecto Demo 06",
+    "date": "22/04/2025",
+    "description": "Proyecto de ejemplo para evaluar el comportamiento de la grilla en móvil y desktop.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-06",
+    "url": "https://example.com/proyecto-demo-06",
+    "skill": ["Responsive", "Layout", "Css"]
+  },
+  {
+    "id": "007",
+    "name": "Proyecto Demo 07",
+    "date": "05/05/2025",
+    "description": "Proyecto de ejemplo con skills variadas para probar el render de tags.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-07",
+    "url": "https://example.com/proyecto-demo-07",
+    "skill": ["Backend", "Api", "Security"]
+  },
+  {
+    "id": "008",
+    "name": "Proyecto Demo 08",
+    "date": "18/05/2025",
+    "description": "Proyecto de ejemplo para revisar el scroll y el sticky header en tablas de modales.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-08",
+    "url": "https://example.com/proyecto-demo-08",
+    "skill": ["Bootstrap", "Modals", "Css"]
+  },
+  {
+    "id": "009",
+    "name": "Proyecto Demo 09",
+    "date": "01/06/2025",
+    "description": "Proyecto de ejemplo para completar 9 ítems y validar la experiencia completa.",
+    "img": "/biblioteca/proyectos/example.jpg",
+    "repository": "https://github.com/example/proyecto-demo-09",
+    "url": "https://example.com/proyecto-demo-09",
+    "skill": ["Testing", "Quality", "Tooling"]
+  }
+]

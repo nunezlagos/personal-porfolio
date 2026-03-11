@@ -1,0 +1,31 @@
+.about {
+  background: var(--about-bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about .about-name {
+  color: var(--about-title-color);
+}
+
+.about .about-title {
+  color: var(--about-subtitle-color);
+}
+
+.about .about-description {
+  color: var(--about-description-color);
+}
+
+
+
+.toggle-description {
+  color: var(--about-title-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-description:hover {
+  text-decoration: underline;
+}

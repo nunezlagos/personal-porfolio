@@ -1,0 +1,41 @@
+---
+import '../css/main.css';
+import '../css/admin.css';
+
+interface Props {
+  title: string;
+  isLoggedIn?: boolean;
+  email?: string;
+}
+const { title, isLoggedIn = false, email = '' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Admin</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/plugins/font-awesome.min.css" />
+  </head>
+  <body>
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <span class="admin-header-brand">Portfolio Admin</span>
+        {isLoggedIn && <a href="/" class="admin-btn admin-btn-ghost" target="_blank" rel="noopener">Ver sitio</a>}
+      </div>
+      <div class="admin-header-right">
+        {isLoggedIn ? (
+          <>
+            <span class="admin-header-email">{email}</span>
+            <a href="/api/auth/logout" class="admin-btn">Cerrar sesión</a>
+          </>
+        ) : (
+          <a href="/api/auth/login" class="admin-btn">Iniciar sesión con Google</a>
+        )}
+      </div>
+    </div>
+    <slot />
+  </body>
+</html>
