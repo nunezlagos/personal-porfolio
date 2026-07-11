@@ -16,12 +16,10 @@ const staticSections: Record<SectionKey, unknown> = {
   experiences: experiencesJson,
 };
 
-/** Devuelve la sección desde los JSON de src/data (sin integraciones externas). */
 export function getStaticSection<T = unknown>(key: SectionKey): T {
   return staticSections[key] as T;
 }
 
-/** Alias de getStaticSection para compatibilidad. */
 export async function getSection<T = unknown>(key: SectionKey): Promise<T> {
   return staticSections[key] as T;
 }

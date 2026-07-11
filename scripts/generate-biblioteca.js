@@ -1,9 +1,3 @@
-/**
- * Genera src/data/biblioteca.json con la lista de imágenes en
- * public/biblioteca/proyectos y public/biblioteca/certificados,
- * y PDFs en public/biblioteca/cv.
- * Ejecutar antes de build/dev: npm run biblioteca
- */
 import { readdirSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,7 +36,6 @@ const data = {
   cv: listPdfs(cvDir, '/biblioteca/cv'),
 };
 
-const outDir = dirname(outPath);
-if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
-writeFileSync(outPath, JSON.stringify(data, null, 2), 'utf-8');
-console.log('Biblioteca generada:', data.proyectos.length, 'proyectos,', data.certificados.length, 'certificados,', data.cv.length, 'PDFs (cv)');
+mkdirSync(dirname(outPath), { recursive: true });
+writeFileSync(outPath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+console.log('Escrito:', outPath);

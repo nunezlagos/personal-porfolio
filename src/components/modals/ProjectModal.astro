@@ -1,24 +1,35 @@
----
----
-
 <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="modal-dialog modal-dialog-centered modal-detail-dialog" role="document">
+    <div class="modal-content modal-detail-content">
+      <div class="modal-header modal-detail-header">
         <div class="modal-header-text">
-          <h5 class="modal-title" id="projectModalLabel"></h5>
-          <h6 class="modal-date mt-2 mb-0" id="modalDate"></h6>
+          <h5 class="modal-title modal-detail-title" id="projectModalLabel"></h5>
+          <p class="modal-detail-meta" id="projectModalDate"></p>
         </div>
         <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Cerrar">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p class="modal-description" id="modalDescription"></p>
-        <img src="" id="modalImage" class="img-fluid" alt="" />
-        <div class="modal-actions">
-          <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn custom-btn w-100 mb-3 mt-3">Enlace a proyecto</a>
-          <button type="button" class="btn custom-btn w-100" data-dismiss="modal">Cerrar</button>
+      <div class="modal-body modal-detail-body">
+        <div class="modal-detail-visual">
+          <img src="" id="projectModalImage" class="modal-detail-img" alt="" />
+        </div>
+        <p class="modal-detail-desc" id="projectModalDescription"></p>
+        <div class="modal-detail-footer">
+          <div class="modal-detail-actions modal-detail-actions-primary" id="projectModalActions">
+            <a id="projectModalLinkSite" href="#" target="_blank" rel="noopener noreferrer" class="btn custom-btn modal-detail-btn">
+              <i class="fa fa-external-link" aria-hidden="true"></i> Sitio
+            </a>
+            <a id="projectModalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn custom-btn modal-detail-btn">
+              <i class="fa fa-github" aria-hidden="true"></i> Código
+            </a>
+            <a id="projectModalLinkVideo" href="#" target="_blank" rel="noopener noreferrer" class="btn custom-btn modal-detail-btn">
+              <i class="fa fa-youtube-play" aria-hidden="true"></i> Video
+            </a>
+          </div>
+          <div class="modal-detail-actions-close">
+            <button type="button" id="projectModalFooterBtn" class="btn custom-btn modal-detail-btn" data-dismiss="modal">Cerrar</button>
+          </div>
         </div>
       </div>
     </div>

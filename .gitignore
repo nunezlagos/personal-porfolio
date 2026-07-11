@@ -6,7 +6,6 @@ dist/
 *.sqlite3
 .env
 .env.*
-!.env.example
 .dev.vars
 wrangler.toml.dev
 *.log

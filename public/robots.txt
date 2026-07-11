@@ -1,6 +1,3 @@
-# Generado con generate-robotstxt (npm run robots)
-# Bloqueo de crawlers y bots de IA / anti-scraping
-
 User-agent: *
 Disallow: /
 

@@ -33,22 +33,6 @@
     padding-bottom: 2rem !important;
   }
 
-  .timeline::after {
-    left: 20px;
-  }
-
-  .timeline-item {
-    width: 100%;
-    padding-left: 50px;
-    padding-right: 15px;
-  }
-
-  .timeline-icon {
-    left: 0 !important;
-    width: 30px;
-    height: 30px;
-  }
-
   p {
     font-size: 16px;
   }

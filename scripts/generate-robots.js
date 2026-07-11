@@ -1,8 +1,3 @@
-/**
- * Genera public/robots.txt con bloqueo de crawlers y bots de IA.
- * Usa la librería generate-robotstxt.
- * Ejecutar: npm run robots
- */
 import robotstxt from 'generate-robotstxt';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -38,10 +33,6 @@ robotstxt({
   host: null,
 }).then((content) => {
   mkdirSync(dirname(outPath), { recursive: true });
-  const withComments = `# Generado con generate-robotstxt (npm run robots)
-# Bloqueo de crawlers y bots de IA / anti-scraping
-
-${content}`;
-  writeFileSync(outPath, withComments, 'utf-8');
+  writeFileSync(outPath, content, 'utf-8');
   console.log('Escrito:', outPath);
 });

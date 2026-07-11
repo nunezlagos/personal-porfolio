@@ -39,7 +39,7 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
     <link rel="stylesheet" href="/css/plugins/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/plugins/aos.css" />
   </head>
-  <body data-spy="scroll" data-target="#navbarNav" data-offset="50" data-contact-email="contacto@nunezlagos.com">
+  <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
     <canvas id="global-canvas"></canvas>
     
     <slot />
@@ -51,8 +51,8 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
     <script is:inline src="/js/animations.js"></script>
     <script is:inline src="/js/starfield.js"></script>
     
-    <button id="floatingActionBtn" class="scroll-top" aria-label="Contacto">
-      <i class="fa fa-envelope" aria-hidden="true"></i>
+    <button id="floatingActionBtn" class="scroll-top" aria-label="WhatsApp">
+      <i class="fa fa-whatsapp" aria-hidden="true"></i>
     </button>
 
     <script is:inline>
@@ -63,8 +63,6 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
         const navbar = document.querySelector('.navbar');
         const home = document.getElementById('home');
         const icon = btn.querySelector('i');
-        const contactEmail = document.body.getAttribute('data-contact-email') || '';
-
         function isInHome() {
           if (!home) return false;
           const rect = home.getBoundingClientRect();
@@ -106,9 +104,6 @@ const { title, description, keywords = '', author = '', ogImage = '/images/icon/
             else btn.classList.remove('show');
           }
 
-          if (!contactEmail && btn.dataset.mode === 'contact') {
-            btn.classList.remove('show');
-          }
         }
 
         btn.addEventListener('click', () => {

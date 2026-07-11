@@ -12,4 +12,86 @@
   padding: 0;
 }
 
+@media (max-width: 991px) {
+  .certifications .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .certifications .card-title {
+    font-size: clamp(1.5rem, 4.5vw, 2rem);
+  }
+  .certifications .card-subtitle {
+    font-size: 0.95rem;
+  }
+  .certifications .col-lg-4.col-md-6.col-12.pb-5 {
+    padding-bottom: 1.5rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .certifications.section {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+  .certifications .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .certifications .card-title {
+    font-size: 1.5rem;
+  }
+  .certifications .card-subtitle {
+    font-size: 0.9rem;
+  }
+  .certifications .row.mt-3 {
+    margin-top: 1rem !important;
+  }
+  .certifications .class-thumb img {
+    height: 180px;
+  }
+  .certifications .class-info {
+    padding: 1rem;
+  }
+  .certifications .class-info h3.card-name {
+    font-size: 1.1rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    max-height: calc(1.3em * 3);
+    min-height: 2.6em;
+  }
+  .certifications .class-info .card-description-text {
+    font-size: 0.9rem;
+    min-height: calc(1.45em * 3);
+    max-height: calc(1.45em * 3);
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+  .certifications .tag-container {
+    margin-top: 0.75rem !important;
+  }
+  .certifications .tag {
+    font-size: 0.7em;
+    padding: 3px 6px;
+  }
+  .certifications .col-lg-12.text-right.mt-5 {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+  }
+  .certifications .custom-btn-text {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .certifications .class-thumb img {
+    height: 160px;
+  }
+  .certifications .class-info h3.card-name {
+    font-size: 1rem;
+  }
+}
+
 

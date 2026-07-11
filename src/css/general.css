@@ -1,6 +1,3 @@
-/* =========================================
-   VARIABLES & THEME CONFIGURATION
-   ========================================= */
 :root {
   --custom-btn-home-background: rgba(111, 147, 224, 0.54);
   --home-subtitle-color: #a2aabc;
@@ -30,14 +27,12 @@
   --link-color: #404040;
   --p-color: rgb(162, 170, 188);
 
-  /* Backgrounds */
   --main-bg-color: linear-gradient(to bottom, #2f3b54, #2c374e);
   --about-bg-color: linear-gradient(to bottom, #2c374e, #252e41);
   --proyectos-bg-color: linear-gradient(to bottom, #252e41, #1d2534);
   --certificaciones-bg-color: linear-gradient(to bottom, #1d2534, #161b27);
   --experiencies-bg-color: linear-gradient(to bottom, #161b27, #0f121a);
 
-  /* Cards & Components */
   --bd-tag-color: #66ffff;
   --card-color: rgb(60, 75, 107);
   --card-hover-color: #4c5e85;
@@ -46,7 +41,6 @@
   --card-description-color: #d7dce2;
   --modal-color: rgb(102, 117, 148);
 
-  /* Typography */
   --base-font-family: 'Roboto', sans-serif;
   --font-weight-bold: 500;
   --font-weight-normal: normal;
@@ -66,16 +60,12 @@
   --base-font-size: 16px;
   --menu-font-size: 14px;
 
-  /* Spacing & Effects */
   --border-radius-large: 100%;
   --border-radius-small: 2px;
   --border-radius-medium: 3px;
   --transition-time: 0.3s ease;
 }
 
-/* =========================================
-   BASE STYLES & TYPOGRAPHY
-   ========================================= */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -88,7 +78,6 @@ body {
   background-color: #0f121a;
 }
 
-/* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-weight-thin);
   line-height: 1.3;
@@ -100,7 +89,7 @@ h1 {
   font-weight: var(--font-weight-bold);
   letter-spacing: -1px;
   text-transform: uppercase;
-  margin: 20px 0 30px; /* More bottom margin */
+  margin: 20px 0 30px;
   color: var(--h1-color);
 }
 
@@ -134,7 +123,7 @@ p {
   color: var(--p-color);
   font-size: var(--p-font-size);
   font-weight: var(--font-weight-light);
-  line-height: 1.6em; /* Improved readability */
+  line-height: 1.6em;
   margin-bottom: 1.5em;
 }
 
@@ -143,7 +132,6 @@ b, strong {
   letter-spacing: 0;
 }
 
-/* Links */
 a {
   color: var(--link-color);
   font-weight: normal;
@@ -169,7 +157,6 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
-/* Animation Keyframes */
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
@@ -182,9 +169,6 @@ body::-webkit-scrollbar {
   }
 }
 
-/* =========================================
-   LAYOUT UTILITIES & COMMON CLASSES
-   ========================================= */
 .section {
   padding: 7rem 0;
   position: relative;
@@ -205,7 +189,6 @@ body::-webkit-scrollbar {
   z-index: 0;
 }
 
-/* Standard Buttons */
 .custom-btn {
   background: var(--custom-btn-home-background);
   color: var(--btn-color);
@@ -241,7 +224,6 @@ body::-webkit-scrollbar {
   color: var(--black-color);
 }
 
-/* Text Button (Transparent with hover effect) */
 .custom-btn-text {
   background: transparent;
   color: var(--white-color);
@@ -260,7 +242,6 @@ body::-webkit-scrollbar {
   text-decoration: none;
 }
 
-/* Forms */
 .form-control {
   background: transparent;
   border: none;

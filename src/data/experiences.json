@@ -5,7 +5,27 @@
     "dateTo": "Actualidad",
     "position": "Ingeniero de Software",
     "place": "SAARGO",
-    "resume": "Como Ingeniero de Software en SAARGO, se han desarrollado herramientas personalizadas utilizando PHP en sus distintas versiones, priorizando siempre la optimización y el rendimiento."
+    "resume": "Como Ingeniero de Software en SAARGO, se han desarrollado herramientas personalizadas utilizando PHP en sus distintas versiones, priorizando siempre la optimización y el rendimiento.",
+    "highlights": [
+      {
+        "title": "Ingeniería en Informática (en curso)",
+        "dateFrom": "03/2023",
+        "dateTo": "Actualidad",
+        "description": "Cursando la carrera en paralelo al trabajo; enfoque en desarrollo de software y bases de datos."
+      },
+      {
+        "title": "Certificación Scrum Foundation",
+        "dateFrom": "01/2024",
+        "dateTo": "01/2024",
+        "description": "Obtención de la certificación mientras ejercía como practicante."
+      },
+      {
+        "title": "Proyecto interno de automatización",
+        "dateFrom": "06/2025",
+        "dateTo": "Actualidad",
+        "description": "Scripts y herramientas para optimizar despliegues y reportes."
+      }
+    ]
   },
   {
     "id": "002",

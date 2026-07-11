@@ -1,17 +1,67 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
 
 const title = 'Página no encontrada';
 const description = 'La página que buscas no existe.';
 ---
 
 <BaseLayout title={title} description={description}>
-  <section class="section" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-    <div class="container text-center">
-      <h1 style="color: var(--about-title-color); margin-bottom: 1rem;">404</h1>
-      <p class="card-subtitle" style="margin-bottom: 2rem;">Página no encontrada</p>
-      <a href="/" class="btn custom-btn-home">Ir al inicio</a>
-      <a href="/admin-dashboard" class="btn custom-btn-cv" style="margin-left: 1rem;">Admin</a>
+  <section class="error-404 section" aria-labelledby="error-heading">
+    <div class="bg-overlay"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 text-center">
+          <p class="error-404__code" id="error-heading" aria-hidden="true">404</p>
+          <h2 class="error-404__title">Página no encontrada</h2>
+          <p class="error-404__text">
+            El enlace que seguiste no existe o ha cambiado. Puedes volver al inicio y seguir desde ahí.
+          </p>
+          <a href="/" class="btn custom-btn error-404__btn"><strong>Volver al inicio</strong></a>
+        </div>
+      </div>
     </div>
   </section>
+  <Footer />
+
+  <style>
+    .error-404 {
+      background: var(--main-bg-color);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 6rem 0;
+    }
+    .error-404 .container {
+      position: relative;
+      z-index: 2;
+    }
+    .error-404__code {
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 700;
+      color: var(--home-title-color);
+      line-height: 1;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 40px rgba(255, 213, 128, 0.15);
+    }
+    .error-404__title {
+      font-size: var(--h2-font-size);
+      color: var(--card-title-color);
+      margin-bottom: 1rem;
+      font-weight: var(--font-weight-bold);
+    }
+    .error-404__text {
+      color: var(--about-description-color);
+      font-size: var(--p-font-size);
+      max-width: 28rem;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .error-404__btn {
+      margin-top: 0.5rem;
+    }
+  </style>
 </BaseLayout>

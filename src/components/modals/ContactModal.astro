@@ -1,72 +1,106 @@
 ---
+const waPhone = '56961937877';
+const waMessage =
+  'Hola, te contacto desde tu portafolio web. Me gustaría conversar contigo.';
+const whatsappHref = `https://wa.me/${waPhone}?text=${encodeURIComponent(waMessage)}`;
 ---
 
 <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header modal-header--contact">
         <h5 class="modal-title" id="contactModalLabel">Contacto</h5>
         <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Cerrar">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <!-- Contact Info Cards -->
-        <div class="row mb-4 contact-info-cards">
-          <div class="col-lg-4 col-md-4 col-12 mb-3 mb-md-0">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="fa fa-phone"></i>
-              </div>
-              <div class="contact-text">
-                <h6 class="mb-1">WhatsApp</h6>
-                <p class="mb-0">+00 000 000 000</p>
+      <div class="modal-body modal-body--contact">
+        <div class="d-none d-md-block">
+          <div class="row contact-info-cards contact-modal-grid g-3">
+            <div class="col-md-4 col-12">
+              <a href={whatsappHref} class="contact-card contact-card--link h-100" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon"><i class="fa fa-whatsapp" aria-hidden="true"></i></div>
+                <div class="contact-text">
+                  <h6 class="mb-1">WhatsApp</h6>
+                  <p class="mb-0 contact-card-line">+56 9 6193 7877</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-4 col-12">
+              <div class="contact-card contact-card--soon h-100">
+                <div class="contact-icon contact-icon--muted"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                <div class="contact-text">
+                  <h6 class="mb-1">Correo</h6>
+                  <p class="mb-1 contact-card-line contact-card-soon-email">contacto@…</p>
+                  <span class="contact-badge-soon">Pronto</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-12 mb-3 mb-md-0">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="fa fa-envelope"></i>
-              </div>
-              <div class="contact-text">
-                <h6 class="mb-1">Email</h6>
-                <p class="mb-0">contacto@nunezlagos.com</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-12">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="fa fa-language"></i>
-              </div>
-              <div class="contact-text">
-                <h6 class="mb-1">Idiomas</h6>
-                <p class="mb-0">Inglés, Portugués</p>
+            <div class="col-md-4 col-12">
+              <div class="contact-card h-100">
+                <div class="contact-icon"><i class="fa fa-language" aria-hidden="true"></i></div>
+                <div class="contact-text">
+                  <h6 class="mb-1">Idiomas</h6>
+                  <p class="mb-0 contact-card-line">Español</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="contact-divider mb-4"></div>
-
-        <form id="contactForm">
-          <div class="form-group">
-            <label for="contactEmail">Email</label>
-            <input id="contactEmail" name="email" class="form-control" type="email" autocomplete="email" placeholder="Tu Email" required />
-          </div>
-          
-          <div class="form-group">
-            <label for="contactMessage">Mensaje</label>
-            <textarea id="contactMessage" name="message" class="form-control" rows="4" required>Me gustaria contactarse</textarea>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 ml-auto mr-auto">
-               <button type="submit" class="btn custom-btn w-100 mt-3">Enviar Mensaje</button>
+        <div id="contactCarousel" class="carousel slide contact-modal-carousel d-md-none" data-ride="carousel" data-interval="5000" data-wrap="true" aria-label="Opciones de contacto">
+          <ol class="carousel-indicators contact-carousel-indicators">
+            <li data-target="#contactCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#contactCarousel" data-slide-to="1"></li>
+            <li data-target="#contactCarousel" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner contact-carousel-inner">
+            <div class="carousel-item active">
+              <div class="contact-info-cards">
+                <a href={whatsappHref} class="contact-card contact-card--link contact-carousel-card" target="_blank" rel="noopener noreferrer">
+                  <div class="contact-icon"><i class="fa fa-whatsapp" aria-hidden="true"></i></div>
+                  <div class="contact-text">
+                    <h6 class="mb-1">WhatsApp</h6>
+                    <p class="mb-0 contact-card-line">+56 9 6193 7877</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="contact-info-cards">
+                <div class="contact-card contact-card--soon contact-carousel-card">
+                  <div class="contact-icon contact-icon--muted"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                  <div class="contact-text">
+                    <h6 class="mb-1">Correo</h6>
+                    <p class="mb-1 contact-card-line contact-card-soon-email">contacto@…</p>
+                    <span class="contact-badge-soon">Pronto</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="contact-info-cards">
+                <div class="contact-card contact-carousel-card">
+                  <div class="contact-icon"><i class="fa fa-language" aria-hidden="true"></i></div>
+                  <div class="contact-text">
+                    <h6 class="mb-1">Idiomas</h6>
+                    <p class="mb-0 contact-card-line">Español</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+          <a class="carousel-control-prev contact-carousel-control" href="#contactCarousel" role="button" data-slide="prev" aria-label="Anterior">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </a>
+          <a class="carousel-control-next contact-carousel-control" href="#contactCarousel" role="button" data-slide="next" aria-label="Siguiente">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div class="contact-form-actions mt-4 justify-content-center mb-0">
+          <button type="button" class="btn custom-btn modal-detail-btn" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -74,36 +108,9 @@
 
 <script is:inline>
   (function () {
-    function init() {
-      const form = document.getElementById('contactForm');
-      if (!form) return;
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const to = document.body.getAttribute('data-contact-email') || '';
-        if (!to) return;
-
-        const email = document.getElementById('contactEmail')?.value || '';
-        const message = document.getElementById('contactMessage')?.value || '';
-        const subject = encodeURIComponent('Contacto desde el portafolio');
-        
-        const body = encodeURIComponent(`Email: ${email}\n\n${message}`);
-        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-
-        if (typeof jQuery !== 'undefined') {
-          jQuery('#contactModal').modal('hide');
-        }
-        // Don't reset form completely to keep the default message, or handle it smartly
-        // form.reset(); 
-        // Instead of full reset, just clear email? Or maybe keep it simple.
-        // User might want to send another. 
-        // Let's reset but restore the default message.
-        form.reset();
-        document.getElementById('contactMessage').value = "Me gustaria contactarse";
-      });
-    }
-
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else init();
+    if (!window.jQuery) return;
+    window.jQuery('#contactModal').on('shown.bs.modal', function () {
+      window.jQuery('#contactCarousel').carousel({ interval: 5000, wrap: true });
+    });
   })();
 </script>

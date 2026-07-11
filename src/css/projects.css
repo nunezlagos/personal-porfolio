@@ -12,4 +12,86 @@
   padding: 0;
 }
 
+@media (max-width: 991px) {
+  .projects .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .projects .card-title {
+    font-size: clamp(1.5rem, 4.5vw, 2rem);
+  }
+  .projects .card-subtitle {
+    font-size: 0.95rem;
+  }
+  .projects .col-lg-4.col-md-6.col-12.pb-5 {
+    padding-bottom: 1.5rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .projects.section {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+  .projects .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .projects .card-title {
+    font-size: 1.5rem;
+  }
+  .projects .card-subtitle {
+    font-size: 0.9rem;
+  }
+  .projects .row.mt-3 {
+    margin-top: 1rem !important;
+  }
+  .projects .class-thumb img {
+    height: 180px;
+  }
+  .projects .class-info {
+    padding: 1rem;
+  }
+  .projects .class-info h3.card-name {
+    font-size: 1.1rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    max-height: calc(1.3em * 3);
+    min-height: 2.6em;
+  }
+  .projects .class-info .card-description-text {
+    font-size: 0.9rem;
+    min-height: calc(1.45em * 3);
+    max-height: calc(1.45em * 3);
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+  .projects .tag-container {
+    margin-top: 0.75rem !important;
+  }
+  .projects .tag {
+    font-size: 0.7em;
+    padding: 3px 6px;
+  }
+  .projects .col-lg-12.text-right.mt-5 {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+  }
+  .projects .custom-btn-text {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects .class-thumb img {
+    height: 160px;
+  }
+  .projects .class-info h3.card-name {
+    font-size: 1rem;
+  }
+}
+
 

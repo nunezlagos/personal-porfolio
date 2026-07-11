@@ -9,7 +9,6 @@ interface Props {
 
 const { subtitle, title, aboutUrl, aboutText, socialLinks } = Astro.props;
 
-// Dividir el título para colorear la primera parte según la paleta (amarillo)
 const words = title.split(' ');
 const mid = Math.ceil(words.length / 2);
 const firstPart = words.slice(0, mid).join(' ');
@@ -24,7 +23,7 @@ const secondPart = words.slice(mid).join(' ');
         <div class="home-text text-center">
           <h6 class="home-subtitle" data-aos="fade-up" data-anim-id="home-subtitle">{subtitle}</h6>
           <h1 class="home-title" data-aos="fade-up" data-anim-id="home-title">
-            {firstPart} <span class="text-white">{secondPart}</span>
+            {firstPart} {secondPart}</span>
           </h1>
           <a href={aboutUrl} class="btn custom-btn mt-3 smoothScroll" data-aos="fade-up" data-anim-id="home-btn">
             <strong>{aboutText}</strong>
