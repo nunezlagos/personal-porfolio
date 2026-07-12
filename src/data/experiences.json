@@ -5,25 +5,24 @@
     "dateTo": "Actualidad",
     "position": "Ingeniero de Software",
     "place": "SAARGO",
-    "resume": "Como Ingeniero de Software en SAARGO, se han desarrollado herramientas personalizadas utilizando PHP en sus distintas versiones, priorizando siempre la optimización y el rendimiento.",
+    "resume": "Como Ingeniero de Software en SAARGO, desarrollo herramientas personalizadas con PHP (versiones 7.x a 8.x), optimizando procesos críticos y mejorando el rendimiento de aplicaciones legacy. Trabajo con equipos multidisciplinarios en un entorno ágil, implementando soluciones backend seguras y mantenibles. Participo activamente en code reviews, documentación técnica y migración de sistemas monolíticos hacia arquitecturas más modulares.",
     "highlights": [
       {
-        "title": "Ingeniería en Informática (en curso)",
-        "dateFrom": "03/2023",
+        "title": "Optimización de procesos batch",
+        "dateFrom": "06/2025",
         "dateTo": "Actualidad",
-        "description": "Cursando la carrera en paralelo al trabajo; enfoque en desarrollo de software y bases de datos."
+        "description": "Diseño e implementación de scripts en PHP y bash para automatizar despliegues, reportes y tareas recurrentes, reduciendo tiempos de ejecución manual en un 70%."
+      },
+      {
+        "title": "Migración de módulo legacy",
+        "dateFrom": "04/2025",
+        "dateTo": "07/2025",
+        "description": "Refactorización completa de un módulo de facturación electrónica, pasando de código espagueti a una arquitectura MVC con tests unitarios en PHPUnit."
       },
       {
         "title": "Certificación Scrum Foundation",
-        "dateFrom": "01/2024",
-        "dateTo": "01/2024",
-        "description": "Obtención de la certificación mientras ejercía como practicante."
-      },
-      {
-        "title": "Proyecto interno de automatización",
-        "dateFrom": "06/2025",
-        "dateTo": "Actualidad",
-        "description": "Scripts y herramientas para optimizar despliegues y reportes."
+        "date": "01/2024",
+        "description": "Obtención de la certificación que respalda el dominio de los principios ágiles y Scrum: roles, eventos, artefactos y valores."
       }
     ]
   },
@@ -33,6 +32,20 @@
     "dateTo": "28/04/2024",
     "position": "Analista Programador (Practicante)",
     "place": "SAARGO",
-    "resume": "Durante su etapa como Analista Programador (Practicante) en SAARGO, se diseñaron soluciones para optimizar procesos repetitivos mediante el desarrollo de una herramienta en PHP 8.2."
+    "resume": "Durante mi etapa como Analista Programador Practicante en SAARGO, diseñé y desarrollé una herramienta interna en PHP 8.2 que automatizaba la carga y validación de datos desde archivos Excel al sistema core, eliminando errores humanos y reduciendo el tiempo de procesamiento de 3 horas a 15 minutos. También colaboré en la migración de reportes manuales a dashboards automatizados con consultas SQL optimizadas.",
+    "highlights": [
+      {
+        "title": "Automatización de carga de datos",
+        "dateFrom": "01/2024",
+        "dateTo": "04/2024",
+        "description": "Desarrollo de una aplicación CLI en PHP 8.2 que procesa, valida e inserta miles de registros desde archivos Excel, con manejo de errores y logging detallado."
+      },
+      {
+        "title": "Capacitación interna",
+        "dateFrom": "02/2024",
+        "dateTo": "03/2024",
+        "description": "Creación de guías técnicas y sesiones de capacitación para el equipo sobre buenas prácticas en SQL y PHP moderno."
+      }
+    ]
   }
 ]

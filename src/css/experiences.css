@@ -93,14 +93,14 @@
   position: relative;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: -3px 4px 14px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
 .experience .timeline-content:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: -5px 8px 22px rgba(0, 0, 0, 0.28);
   border-color: rgba(92, 207, 230, 0.3);
 }
 
@@ -240,6 +240,70 @@
   top: 18px;
 }
 
+.experience .timeline-item.gap {
+  width: 100%;
+  padding: 0 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+}
+
+.experience .timeline-gap-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(92, 207, 230, 0.2) 0px,
+    rgba(92, 207, 230, 0.2) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  z-index: 0;
+}
+
+.experience .timeline-gap-label {
+  position: relative;
+  z-index: 1;
+  background: rgba(47, 59, 84, 0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(92, 207, 230, 0.15);
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+  font-size: 0.78rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.experience .timeline-gap-label i {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 767px) {
+  .experience .timeline-item.gap {
+    padding: 0 12px 0 52px;
+    height: 2.5rem;
+    justify-content: flex-start;
+  }
+  .experience .timeline-gap-line {
+    left: 20px;
+  }
+  .experience .timeline-gap-label {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.85rem;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .experience.section {
     padding-top: 4rem;
@@ -289,9 +353,11 @@
     padding-left: 0;
   }
   .experience .timeline::after {
-    left: 19px;
-    margin-left: -1px;
-    width: 2px;
+    left: 20px;
+    margin-left: 0;
+    width: 3px;
+    opacity: 0.3;
+    border-radius: 2px;
   }
   .experience .timeline-item,
   .experience .timeline-item.left,
@@ -300,16 +366,18 @@
     left: 0;
     padding-left: 52px;
     padding-right: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
   .experience .timeline-icon {
-    left: 0 !important;
+    left: -1px !important;
     right: auto;
-    width: 38px;
-    height: 38px;
-    top: 16px;
-    font-size: 0.9rem;
+    width: 42px;
+    height: 42px;
+    top: 14px;
+    font-size: 0.95rem;
+    border-width: 3px;
+    box-shadow: 0 0 0 4px rgba(92, 207, 230, 0.1), 0 0 12px rgba(92, 207, 230, 0.3);
   }
   .experience .timeline-item.left .timeline-content::before,
   .experience .timeline-item.right .timeline-content::before {
@@ -321,7 +389,11 @@
   }
   .experience .timeline-content {
     padding: 16px 18px;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: -2px 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  .experience .timeline-content:hover {
+    box-shadow: -4px 6px 18px rgba(0, 0, 0, 0.25);
   }
   .experience .experience-date {
     font-size: 0.78rem;
@@ -341,12 +413,14 @@
     line-height: 1.55;
   }
   .experience .timeline-icon--highlight {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     top: 16px;
-    left: 0 !important;
+    left: 2px !important;
     right: auto;
     transform: none;
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(92, 207, 230, 0.08);
   }
   .experience .timeline-item.highlight:hover .timeline-icon--highlight {
     transform: scale(1.1);

@@ -200,14 +200,20 @@ body::-webkit-scrollbar {
   text-transform: uppercase;
   font-size: var(--p-font-size);
   white-space: nowrap;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.32);
+  box-shadow: -3px 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 .custom-btn:hover {
   background: var(--btn-hover-color);
   color: var(--black-color);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.custom-btn:active {
+  transform: translateY(0);
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .bordered-btn {
@@ -240,6 +246,14 @@ body::-webkit-scrollbar {
   background: transparent;
   color: var(--primary-color);
   text-decoration: none;
+}
+
+.custom-btn-text i {
+  transition: transform 0.2s ease;
+}
+
+.custom-btn-text:hover i {
+  transform: translateX(4px);
 }
 
 .form-control {

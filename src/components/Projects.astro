@@ -173,7 +173,7 @@ const displayItems = projects.slice(0, 3);
         </article>`
           )
           .join('');
-        container.querySelectorAll('.modal-list-card').forEach((el) => {
+          container.querySelectorAll('.modal-list-card').forEach((el) => {
           el.addEventListener('click', function (e) {
             if (e.target.closest('.modal-list-card-link')) return;
             const t = this;
@@ -181,8 +181,12 @@ const displayItems = projects.slice(0, 3);
             t.classList.add('modal-list-card--selected');
             fillProjectModal(t, true);
             if (window.jQuery) {
-              window.jQuery('#projectList').modal('hide');
-              window.jQuery('#projectModal').modal('show');
+              const $listModal = window.jQuery('#projectList');
+              const $detailModal = window.jQuery('#projectModal');
+              $listModal.one('hidden.bs.modal', function () {
+                $detailModal.modal('show');
+              });
+              $listModal.modal('hide');
             }
           });
         });

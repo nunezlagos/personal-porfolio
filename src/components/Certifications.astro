@@ -166,8 +166,12 @@ const displayItems = certifications.slice(0, 3);
             t.classList.add('modal-list-card--selected');
             fillCertificationModal(t, true);
             if (window.jQuery) {
-              window.jQuery('#certificationList').modal('hide');
-              window.jQuery('#certificationModal').modal('show');
+              const $listModal = window.jQuery('#certificationList');
+              const $detailModal = window.jQuery('#certificationModal');
+              $listModal.one('hidden.bs.modal', function () {
+                $detailModal.modal('show');
+              });
+              $listModal.modal('hide');
             }
           });
         });

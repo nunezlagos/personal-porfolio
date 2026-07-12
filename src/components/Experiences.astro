@@ -34,9 +34,16 @@ const truncate = (s: string, words = 30) => {
 
 type TimelineEntry =
   | { type: 'job'; fullText: string; exp: Experience }
-  | { type: 'highlight'; fullText: string; highlight: ExperienceHighlight };
+  | { type: 'highlight'; fullText: string; highlight: ExperienceHighlight }
+  | { type: 'gap'; dateFrom: string; dateTo: string };
 const flattenedEntries: TimelineEntry[] = [];
-experiences.forEach((exp) => {
+experiences.forEach((exp, i) => {
+  if (i > 0) {
+    const prev = experiences[i - 1];
+    if (prev.dateTo !== 'Actualidad' && exp.dateFrom !== prev.dateTo) {
+      flattenedEntries.push({ type: 'gap', dateFrom: prev.dateTo, dateTo: exp.dateFrom });
+    }
+  }
   flattenedEntries.push({ type: 'job', fullText: exp.resume, exp });
   (exp.highlights || []).forEach((h) => {
     flattenedEntries.push({ type: 'highlight', fullText: h.description, highlight: h });
@@ -48,14 +55,24 @@ experiences.forEach((exp) => {
   <div class="container">
     <div class="row mt-1">
       <div class="col-lg-12 text-center mb-5">
-        <h2 class="card-title" data-aos="fade-up" data-anim-id="section-title">EXPERIENCIA LABORAL</h2>
-        <h6 class="card-subtitle" data-aos="fade-up" data-anim-id="section-subtitle">Resumen de experiencia laboral en desarrollo</h6>
+        <h2 class="card-title" data-aos="fade-up" data-anim-id="section-title">EXPERIENCIA</h2>
+        <h6 class="card-subtitle" data-aos="fade-up" data-anim-id="section-subtitle">Trayectoria profesional y logros destacados</h6>
       </div>
 
       <div class="col-lg-12">
         <div class="timeline" id="experiences-timeline">
           {flattenedEntries.map((entry, idx) => {
             const sideClass = idx % 2 === 0 ? 'left' : 'right';
+            if (entry.type === 'gap') {
+              return (
+                <div class="timeline-item gap" data-aos="fade-up">
+                  <div class="timeline-gap-line"></div>
+                  <div class="timeline-gap-label">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> {entry.dateFrom} → {entry.dateTo}
+                  </div>
+                </div>
+              );
+            }
             if (entry.type === 'job') {
               const exp = entry.exp;
               const short = truncate(exp.resume);

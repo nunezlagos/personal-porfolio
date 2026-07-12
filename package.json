@@ -16,13 +16,11 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.0.0",
     "astro": "^5.0.0"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^2.1.0",
     "generate-robotstxt": "^8.0.3",
-    "vitest": "^2.1.0",
-    "wrangler": "^3.78.0"
+    "vitest": "^2.1.0"
   }
 }
